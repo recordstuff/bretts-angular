@@ -1,0 +1,12 @@
+# docker-compose.yml
+ 
+# Reference compose file version 3
+version: “3”
+services:
+# Service name is angular-app
+  angular-app:
+# build from Dockerfile
+    build: .
+# expose 443 as hosting port and container port
+    ports:
+    - 8008:8008
