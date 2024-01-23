@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { RouterOutlet, provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
