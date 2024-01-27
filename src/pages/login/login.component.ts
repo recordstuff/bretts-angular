@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { JwtUtil } from '../../services/JwtUtil'
 import { defaultUserCredentials, UserCredentials } from '../../models/UserCredentials';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     templateUrl: 'login.component.html',
@@ -9,10 +11,17 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class LoginComponent { 
-    public UserCredentials: UserCredentials = defaultUserCredentials()
+    constructor(private jwtUtil: JwtUtil, private httpClient: HttpClient) {
 
-    public handleClick(event: MouseEvent) : void
-    {
-        alert('test')
+    }
+
+    UserCredentials: UserCredentials = defaultUserCredentials()
+
+    ngOnInit() {
+        this.jwtUtil.clear()
+    }
+
+    handleClick(event: MouseEvent) : void {
+        const reply = this.httpClient.get("blah").subscribe()
     }
 }

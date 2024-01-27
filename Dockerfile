@@ -32,4 +32,4 @@ EXPOSE 8008
 
 # Serve the production build over HTTPS
 #CMD ["serve", "-s", "-l", "443", "-C", "--ssl-key", "$HTTPS_KEY", "--ssl-cert", "$HTTPS_CERT", "build"]
-CMD ["serve", "-s", "-l", "8008", "-C", "build"]
+CMD ["serve", "-s", "-l", "8008", "-C", "dist/brett-angular/browser"]
