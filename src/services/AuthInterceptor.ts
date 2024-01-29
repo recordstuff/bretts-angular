@@ -10,7 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const token = this.jwtUtil.token
 
-// TODO: you are here get base url from .env, set other headers like the cors stuff
+// TODO: you are here get base url from environment.ts and replace baseurl in string below. set other headers like the cors stuff
 
         const authReq = req.clone({
             url: `baseurl/${req.url}`,
