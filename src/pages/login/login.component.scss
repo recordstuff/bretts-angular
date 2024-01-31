@@ -1,0 +1,16 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: 2em;
+
+    > * {
+        width: 100%;
+      }
+
+      // hardcode this for now TODO
+      @media (min-width: 992px) {
+        margin-left: 25vw;
+        margin-right: 25vw;
+    }
+  }
+   

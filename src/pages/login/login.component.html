@@ -1,13 +1,14 @@
-<div>
-    <input [(ngModel)]="UserCredentials.Email" type="email"   />
+<div class="login-container">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="UserCredentials.Email" type="email" placeholder="Email">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="UserCredentials.Password" type="password" placeholder="Password" />
+    </mat-form-field>
+    <button color="primary" mat-stroked-button (click)="handleClick($event)">Login</button>
+    <p>
+        This is the Angular frontend. Go to the <a href="http://brettdrake.org/">React frontend</a>.
+    </p>
 </div>
-<div>
-    <input [(ngModel)]="UserCredentials.Password" type="password"  />
-</div>
-<div>
-    <button (click)="handleClick($event)">Login</button>
-</div>
-<p>
-    This is the Angular frontend.  Go to the <a href="http://brettdrake.org/">React frontend</a>.
-</p>
-
