@@ -1,0 +1,66 @@
+:host {
+    display: block;
+    min-height: 100dvh;
+}
+
+.drawer-container {
+    min-height: 100dvh;
+    background: var(--app-page-background);
+}
+
+.drawer {
+    width: 12.5rem;
+    background: var(--app-surface);
+}
+
+.app-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    gap: 0.5rem;
+}
+
+.page-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account {
+    display: grid;
+    flex: 0 0 auto;
+    max-width: 45%;
+    min-width: 0;
+    margin-left: auto;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.display-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.logout-link {
+    width: fit-content;
+    color: inherit;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    font-weight: 500;
+}
+
+.page-content {
+    box-sizing: border-box;
+    padding: 1.5rem;
+}
+
+@media (max-width: 599.98px) {
+    .page-content {
+        padding: 1rem;
+    }
+}
