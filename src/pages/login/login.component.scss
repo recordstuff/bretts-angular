@@ -32,6 +32,10 @@
     gap: 0.75rem;
 }
 
+.credential-actions button {
+    border-color: var(--app-accent);
+}
+
 .login-submit {
     grid-column: 1 / -1;
 }

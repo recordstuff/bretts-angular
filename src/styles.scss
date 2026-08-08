@@ -2,58 +2,33 @@
 
 @include mat.core();
 
-$aqua-palette: (
-    50: #eefafa,
-    100: #d4f0f0,
-    200: #bce2e2,
-    300: #a4d5d5,
-    400: #97cece,
-    500: #8fcaca,
-    600: #7cb7b7,
-    700: #68a2a2,
-    800: #548d8d,
-    900: #356c6c,
+$teal-palette: (
+    50: #e5f7f5,
+    100: #bfe9e5,
+    200: #83d0c9,
+    300: #65c3ba,
+    400: #54b2a9,
+    500: #35a79c,
+    600: #009688,
+    700: #00877a,
+    800: #006f65,
+    900: #004d46,
     contrast: (
-        50: #173f3a,
-        100: #173f3a,
-        200: #173f3a,
-        300: #173f3a,
-        400: #173f3a,
-        500: #173f3a,
-        600: #173f3a,
+        50: #073b36,
+        100: #073b36,
+        200: #073b36,
+        300: #073b36,
+        400: #073b36,
+        500: #073b36,
+        600: #073b36,
         700: #ffffff,
         800: #ffffff,
         900: #ffffff,
     ),
 );
 
-$green-palette: (
-    50: #f1f8f3,
-    100: #dcecdf,
-    200: #cce2cb,
-    300: #b6cfb6,
-    400: #a7c8af,
-    500: #97c1a9,
-    600: #82ad93,
-    700: #6d987d,
-    800: #588368,
-    900: #38624a,
-    contrast: (
-        50: #173f3a,
-        100: #173f3a,
-        200: #173f3a,
-        300: #173f3a,
-        400: #173f3a,
-        500: #173f3a,
-        600: #173f3a,
-        700: #ffffff,
-        800: #ffffff,
-        900: #ffffff,
-    ),
-);
-
-$primary: mat.define-palette($aqua-palette, 500, 100, 700);
-$accent: mat.define-palette($green-palette, 500, 200, 700);
+$primary: mat.define-palette($teal-palette, 600, 200, 800);
+$accent: mat.define-palette($teal-palette, 400, 100, 700);
 $theme: mat.define-light-theme((
     color: (
         primary: $primary,
@@ -67,15 +42,15 @@ $theme: mat.define-light-theme((
 
 :root {
     color-scheme: light;
-    --app-page-background: #d4f0f0;
-    --app-primary: #8fcaca;
-    --app-surface: #cce2cb;
-    --app-surface-strong: #b6cfb6;
-    --app-accent: #97c1a9;
-    --app-text: #173f3a;
-    --app-link: #356c6c;
-    --app-link-hover: #285858;
-    --app-link-active: #1d4646;
+    --app-page-background: #83d0c9;
+    --app-primary: #009688;
+    --app-surface: #e5f7f5;
+    --app-surface-strong: #65c3ba;
+    --app-accent: #35a79c;
+    --app-text: #073b36;
+    --app-link: #004d46;
+    --app-link-hover: #003c37;
+    --app-link-active: #002b27;
 }
 
 html,
