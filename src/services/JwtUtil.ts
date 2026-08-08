@@ -7,7 +7,7 @@ export class JwtUtil {
     private readonly expirationName: string = "accessTokenExpiration"
     
     public get isExpired() : boolean {
-        const expireSecondsStr = localStorage.getItem(this.expirationName)
+        const expireSecondsStr = sessionStorage.getItem(this.expirationName)
 
         if (expireSecondsStr == null) return true
 
@@ -17,7 +17,7 @@ export class JwtUtil {
     }
 
     public get token(): string {
-        return localStorage.getItem(this.encodedTokenName) ?? ''
+        return sessionStorage.getItem(this.encodedTokenName) ?? ''
     }
 
     public set token(encodedToken: string) {
@@ -31,8 +31,8 @@ export class JwtUtil {
 
                 const jwt: Jwt = JSON.parse(atob(body))
 
-                localStorage.setItem(this.encodedTokenName, encodedToken)
-                localStorage.setItem(this.expirationName, jwt.exp.toString())
+                sessionStorage.setItem(this.encodedTokenName, encodedToken)
+                sessionStorage.setItem(this.expirationName, jwt.exp.toString())
 
                 return
             }
@@ -45,7 +45,7 @@ export class JwtUtil {
     }
 
     public clear(): void {
-        localStorage.removeItem(this.encodedTokenName)
-        localStorage.removeItem(this.expirationName)
+        sessionStorage.removeItem(this.encodedTokenName)
+        sessionStorage.removeItem(this.expirationName)
     }
 }
