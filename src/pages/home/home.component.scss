@@ -1,0 +1,90 @@
+.home-page {
+    display: grid;
+    gap: 1.5rem;
+}
+
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+header p,
+.option-card p {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+mat-card {
+    overflow: hidden;
+    background: var(--app-surface);
+}
+
+.featured-card {
+    border-width: 2px;
+    border-color: var(--app-primary);
+}
+
+.option-card {
+    display: block;
+    padding: 1rem;
+    color: var(--app-text);
+    text-decoration: none;
+    transition: background-color 140ms ease, color 140ms ease;
+}
+
+.option-card.featured {
+    padding: 1.5rem;
+}
+
+.option-card:hover {
+    background: color-mix(in srgb, var(--app-surface-strong) 42%, var(--app-surface));
+    color: var(--app-link-hover);
+}
+
+.option-card:active {
+    background: var(--app-surface-strong);
+    color: var(--app-link-active);
+}
+
+.option-card:focus-visible {
+    outline: 3px solid var(--app-primary);
+    outline-offset: -3px;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-heading h3 {
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.featured .card-heading h3 {
+    font-size: 1.5rem;
+}
+
+.featured .card-heading,
+.featured-label {
+    color: var(--app-primary);
+}
+
+.featured-label {
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 2.66;
+    text-transform: uppercase;
+}

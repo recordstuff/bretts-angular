@@ -3,7 +3,8 @@ import { AppStateService } from '../../services/AppState'
 
 @Component({
     standalone: true,
-    template: '',
+    templateUrl: 'bacon-ipsum.component.html',
+    styleUrl: 'bacon-ipsum.component.scss',
 })
 export class BaconIpsumComponent implements OnInit {
     private readonly appState = inject(AppStateService)

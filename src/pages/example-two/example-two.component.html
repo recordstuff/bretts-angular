@@ -1,0 +1,19 @@
+<section class="field-set">
+    <h2>First Set of Fields</h2>
+    @for (field of fieldNumbers; track field) {
+        <mat-form-field appearance="outline">
+            <mat-label>Field {{ field }}</mat-label>
+            <input matInput>
+        </mat-form-field>
+    }
+</section>
+
+<section class="field-set second-set">
+    <h2>Second Set of Fields</h2>
+    @for (field of fieldNumbers; track field) {
+        <mat-form-field appearance="outline">
+            <mat-label>Set 2 Field {{ field }}</mat-label>
+            <input matInput>
+        </mat-form-field>
+    }
+</section>
