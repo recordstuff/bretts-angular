@@ -3,7 +3,7 @@ import { AppStateService } from '../../services/AppState'
 
 @Component({
     standalone: true,
-    template: '',
+    templateUrl: 'settings.component.html',
 })
 export class SettingsComponent implements OnInit {
     private readonly appState = inject(AppStateService)

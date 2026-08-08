@@ -1,1 +1,57 @@
-<h1>Home Page</h1>
+<section class="home-page">
+    <header>
+        <h2>Project options</h2>
+        <p>Use the menu to explore examples of common application layouts and, if you are an administrator, manage users and settings.</p>
+    </header>
+
+    <mat-card appearance="outlined">
+        <a class="option-card" matRipple routerLink="/gridexample">
+            <div class="card-heading">
+                <mat-icon>table_rows</mat-icon>
+                <h3>Grid Example</h3>
+            </div>
+            <p>Contains two groups of fields: Contact and Address. They appear side by side on larger screens, then move into one column on smaller screens with Contact first and Address below it.</p>
+        </a>
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <a class="option-card" matRipple routerLink="/exampletwo">
+            <div class="card-heading">
+                <mat-icon>table_chart</mat-icon>
+                <h3>Example Two</h3>
+            </div>
+            <p>Shows a different responsive two-column pattern. Instead of moving whole field groups like Grid Example, its individual fields flow from two columns into a single column as the screen narrows.</p>
+        </a>
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <a class="option-card" matRipple routerLink="/baconipsum">
+            <div class="card-heading">
+                <mat-icon>agriculture</mat-icon>
+                <h3>Bacon Ipsum</h3>
+            </div>
+            <p>A placeholder page for now. Its sample text keeps the navigation route and application layout represented until this area is replaced with a functional feature.</p>
+        </a>
+    </mat-card>
+
+    <mat-card class="featured-card" appearance="outlined">
+        <a class="option-card featured" matRipple routerLink="/users">
+            <div class="featured-label">Featured working example</div>
+            <div class="card-heading">
+                <mat-icon>people</mat-icon>
+                <h3>Users</h3>
+            </div>
+            <p>The project's most complete working feature manages real user data through a full set of CRUD operations. Administrators can search and filter users, create accounts, edit user details and role assignments, and delete users.</p>
+        </a>
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <a class="option-card" matRipple routerLink="/settings">
+            <div class="card-heading">
+                <mat-icon>settings</mat-icon>
+                <h3>Settings</h3>
+            </div>
+            <p>An administrator-only placeholder for now. It reserves a location for future application-level configuration, but it does not currently provide working settings.</p>
+        </a>
+    </mat-card>
+</section>
