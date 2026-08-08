@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core"
-import { JwtField, JwtRole } from "../models/Jwt"
+import { Jwt, JWT_ROLE_CLAIM, JwtRole } from "../models/Jwt"
 
 @Injectable({providedIn: 'root'})
 export class JwtUtil {
     private readonly encodedTokenName: string = "accessToken"
+    private readonly expirationName: keyof Jwt = "exp"
+    private readonly displayNameName: keyof Jwt = "displayName"
     
     public get isExpired() : boolean {
-        const expirationSecondsStr = sessionStorage.getItem(JwtField.ExpirationSeconds)
+        const expirationSecondsStr = sessionStorage.getItem(this.expirationName)
 
         if (expirationSecondsStr === null) return true
 
@@ -20,7 +22,7 @@ export class JwtUtil {
     }
 
     public get displayName(): string {
-        return sessionStorage.getItem(JwtField.DisplayName) ?? ''
+        return sessionStorage.getItem(this.displayNameName) ?? ''
     }
 
     public hasRole(role: JwtRole): boolean {
@@ -28,7 +30,7 @@ export class JwtUtil {
 
         if (role === JwtRole.Any) return true
 
-        const rolesStr = sessionStorage.getItem(JwtField.Roles)
+        const rolesStr = sessionStorage.getItem(JWT_ROLE_CLAIM)
 
         if (rolesStr === null) return false
 
@@ -40,7 +42,7 @@ export class JwtUtil {
     public hasMultipleRoles(): boolean {
         if (this.isExpired) return false
 
-        const rolesStr = sessionStorage.getItem(JwtField.Roles)
+        const rolesStr = sessionStorage.getItem(JWT_ROLE_CLAIM)
 
         if (rolesStr === null) return false
 
@@ -59,11 +61,11 @@ export class JwtUtil {
                 const padding = (4 - body.length % 4) % 4
                 body = body.padEnd(body.length + padding, '=')
 
-                const jwt: Record<JwtField, string | number | string[]> = JSON.parse(atob(body))
+                const jwt: Jwt = JSON.parse(atob(body))
 
-                const expirationSeconds = jwt[JwtField.ExpirationSeconds]
-                const displayName = jwt[JwtField.DisplayName]
-                let roles = jwt[JwtField.Roles]
+                const expirationSeconds = jwt.exp
+                const displayName = jwt.displayName
+                let roles = jwt[JWT_ROLE_CLAIM]
 
                 if (typeof roles === 'string') {
                     roles = [roles]
@@ -75,9 +77,9 @@ export class JwtUtil {
                 }
 
                 sessionStorage.setItem(this.encodedTokenName, encodedToken)
-                sessionStorage.setItem(JwtField.ExpirationSeconds, expirationSeconds.toString())
-                sessionStorage.setItem(JwtField.DisplayName, displayName.toString())
-                sessionStorage.setItem(JwtField.Roles, JSON.stringify(roles))
+                sessionStorage.setItem(this.expirationName, expirationSeconds.toString())
+                sessionStorage.setItem(this.displayNameName, displayName)
+                sessionStorage.setItem(JWT_ROLE_CLAIM, JSON.stringify(roles))
 
                 return
             }
@@ -91,8 +93,8 @@ export class JwtUtil {
 
     public clear(): void {
         sessionStorage.removeItem(this.encodedTokenName)
-        sessionStorage.removeItem(JwtField.ExpirationSeconds)
-        sessionStorage.removeItem(JwtField.DisplayName)
-        sessionStorage.removeItem(JwtField.Roles)
+        sessionStorage.removeItem(this.expirationName)
+        sessionStorage.removeItem(this.displayNameName)
+        sessionStorage.removeItem(JWT_ROLE_CLAIM)
     }
 }

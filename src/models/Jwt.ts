@@ -1,13 +1,13 @@
-export type Jwt = Record<JwtField, string | number | string[]>
+export const JWT_ROLE_CLAIM = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
 
-export enum JwtField {
-    Email = 'sub',
-    Guid = 'jti',
-    DisplayName = 'displayName',
-    ExpirationSeconds = 'exp',
-    Issuer = 'iss',
-    Audience = 'aud',
-    Roles = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role',
+export interface Jwt {
+    sub: string
+    jti: string
+    displayName: string
+    exp: number
+    iss: string
+    aud: string
+    [JWT_ROLE_CLAIM]: string | string[]
 }
 
 export enum JwtRole {
