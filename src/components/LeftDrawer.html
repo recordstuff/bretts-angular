@@ -1,0 +1,65 @@
+<mat-sidenav-container class="drawer-container">
+    <mat-sidenav
+        id="mobile-navigation-drawer"
+        class="drawer"
+        role="navigation"
+        [mode]="isMobile() ? 'over' : 'side'"
+        [opened]="!isMobile() || mobileOpen()"
+        (closed)="closeMobileMenu()"
+    >
+        <mat-nav-list aria-label="Main navigation">
+            @for (menuItem of visibleMenuItems; track $index) {
+                @if (menuItem.kind === 'divider') {
+                    <mat-divider></mat-divider>
+                } @else {
+                    <a
+                        mat-list-item
+                        [routerLink]="menuItem.route"
+                        routerLinkActive
+                        #activeLink="routerLinkActive"
+                        [routerLinkActiveOptions]="{ exact: menuItem.route === '/' }"
+                        [activated]="activeLink.isActive"
+                        (pointerdown)="pointerInteraction()"
+                        (keydown)="keyboardInteraction()"
+                        (click)="menuOptionSelected()"
+                    >
+                        <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
+                        <span matListItemTitle>{{ menuItem.text }}</span>
+                    </a>
+                }
+            }
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar class="app-toolbar" color="primary">
+            @if (isMobile()) {
+                <button
+                    class="menu-button"
+                    mat-icon-button
+                    type="button"
+                    aria-controls="mobile-navigation-drawer"
+                    aria-label="Toggle navigation menu"
+                    [attr.aria-expanded]="mobileOpen()"
+                    [class.suppress-program-focus]="!showRestoredFocus()"
+                    (pointerdown)="pointerInteraction()"
+                    (keydown)="keyboardInteraction()"
+                    (click)="toggleMobileMenu()"
+                >
+                    <mat-icon>menu</mat-icon>
+                </button>
+            }
+
+            <span class="page-title">{{ appState.pageTitle() }}</span>
+
+            <span class="account">
+                <span class="display-name">{{ displayName }}</span>
+                <a class="logout-link" routerLink="/login" title="Go back to the login screen.">Logout</a>
+            </span>
+        </mat-toolbar>
+
+        <main class="page-content">
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
