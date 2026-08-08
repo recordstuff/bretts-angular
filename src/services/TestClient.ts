@@ -9,4 +9,12 @@ export class TestClient {
     public throwError(): Observable<void> {
         return this.httpClient.get<void>('test/throwerror')
     }
+
+    public writeLogEntry(): Observable<void> {
+        return this.httpClient.get<void>('test/structuredlogentry')
+    }
+
+    public shutdown(): Observable<void> {
+        return this.httpClient.delete<void>('test/shutdown')
+    }
 }

@@ -20,4 +20,12 @@ export class SettingsComponent implements OnInit {
     throwError(): void {
         this.testClient.throwError().subscribe()
     }
+
+    writeLogEntry(): void {
+        this.testClient.writeLogEntry().subscribe()
+    }
+
+    shutdown(): void {
+        this.testClient.shutdown().subscribe()
+    }
 }
