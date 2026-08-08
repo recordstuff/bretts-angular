@@ -1,1 +1,19 @@
 <p>Administrators are fancier than average people.</p>
+
+<section class="diagnostic-action" aria-label="Test log entry">
+    <span>Write a test log entry:</span>
+    <button mat-raised-button color="primary" type="button" (click)="writeLogEntry()">Write Log Entry</button>
+</section>
+
+<section class="diagnostic-action" aria-label="Global exception handler test">
+    <span>Test the global exception handler:</span>
+    <button mat-raised-button color="primary" type="button" (click)="throwError()">Throw Error</button>
+</section>
+
+<section class="diagnostic-action" aria-label="Backend shutdown">
+    <span>I don't mind. This is a sandbox. If anyone really does attack me, I'll hide it.</span>
+    <button class="shutdown-button" mat-raised-button type="button" (click)="shutdown()">
+        <span class="devil-icon" aria-hidden="true">😈</span>
+        Shutdown the Backend!!!
+    </button>
+</section>

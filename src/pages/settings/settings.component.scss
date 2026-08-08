@@ -1,0 +1,44 @@
+.diagnostic-action {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.shutdown-button {
+    --mdc-protected-button-label-text-color: #ffffff;
+    --mat-protected-button-state-layer-color: #ffffff;
+    border: 1px solid #ff8a80;
+    background: linear-gradient(135deg, #7f0000 0%, #d32f2f 52%, #ff1744 100%);
+    box-shadow: 0 0 0.8rem rgba(211, 47, 47, 0.55), 0 0.4rem 0.8rem rgba(127, 0, 0, 0.35);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    transition: background 140ms ease, box-shadow 140ms ease, transform 100ms ease;
+}
+
+.shutdown-button:hover {
+    background: linear-gradient(135deg, #b71c1c 0%, #f44336 52%, #ff5252 100%);
+    box-shadow: 0 0 1.1rem rgba(244, 67, 54, 0.75), 0 0.55rem 1rem rgba(127, 0, 0, 0.45);
+    transform: translateY(-1px);
+}
+
+.shutdown-button:active {
+    background: linear-gradient(135deg, #4a0000 0%, #b71c1c 60%, #d50000 100%);
+    box-shadow: 0 0 0.45rem rgba(183, 28, 28, 0.65);
+    transform: translateY(1px);
+}
+
+.devil-icon {
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+    filter: drop-shadow(0 0 0.2rem rgba(255, 255, 255, 0.65));
+}
+
+@media (max-width: 599.98px) {
+    .diagnostic-action {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
