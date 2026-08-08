@@ -1,0 +1,14 @@
+@if (errorBoundary.error(); as error) {
+    @if (!error.suppressMessage) {
+        <main class="error-page" role="alert">
+            <section class="error-panel">
+                <h1>Unfortunate Occurrence</h1>
+                <p>The application experienced a problem.</p>
+                <p>Unhandled Error@if (error.name !== 'Error') {<span>: {{ error.name }}</span>}</p>
+                <p class="error-message">{{ error.message }}</p>
+            </section>
+        </main>
+    }
+} @else {
+    <ng-content></ng-content>
+}

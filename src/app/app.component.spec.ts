@@ -14,10 +14,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('places every routed screen inside the Please Wait parent', () => {
+  it('places every routed screen inside the error boundary and Please Wait parent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('app-please-wait router-outlet')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('app-error-boundary app-please-wait router-outlet')).not.toBeNull();
   });
 });
