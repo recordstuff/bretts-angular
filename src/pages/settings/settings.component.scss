@@ -1,0 +1,13 @@
+.exception-test {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 599.98px) {
+    .exception-test {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

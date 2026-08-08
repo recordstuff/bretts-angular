@@ -13,6 +13,18 @@ describe('ErrorBoundaryService', () => {
             suppressMessage: false,
         })
     })
+
+    it('normalizes Angular error-shaped objects for the fallback screen', () => {
+        const service = TestBed.inject(ErrorBoundaryService)
+
+        service.capture({message: 'HTTP request failed', name: 'HttpErrorResponse'})
+
+        expect(service.error()).toEqual({
+            message: 'HTTP request failed',
+            name: 'HttpErrorResponse',
+            suppressMessage: false,
+        })
+    })
 })
 
 describe('GlobalErrorHandler', () => {
