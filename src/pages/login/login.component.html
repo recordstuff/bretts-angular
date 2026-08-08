@@ -54,11 +54,19 @@
                     {{ isLoggingIn ? 'Logging in…' : 'Login' }}
                 </button>
 
-                <p class="project-notice">
-                    This is VERY incomplete. Please see the
-                    <a href="https://nextjs.brettdrake.org/">NextJS React project</a>
-                    or <a href="https://solidjs.brettdrake.org/">SolidJS project</a>.
-                </p>
+                <footer class="project-footer">
+                    <p class="project-notice">
+                        <span class="construction-icon" aria-hidden="true">
+                            <mat-icon>construction</mat-icon>
+                        </span>
+                        <span>
+                            This is VERY incomplete. Please see the
+                            <a href="https://nextjs.brettdrake.org/">NextJS React project</a>
+                            or <a href="https://solidjs.brettdrake.org/">SolidJS project</a> instead.
+                        </span>
+                    </p>
+                    <a class="site-link" href="https://brettdrake.org/">brettdrake.org</a>
+                </footer>
             </form>
         </mat-card-content>
     </mat-card>
