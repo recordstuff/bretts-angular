@@ -29,6 +29,14 @@ export const routes: Routes = [
                 loadComponent: () => import('../pages/users/users.component').then(component => component.UsersComponent),
             },
             {
+                path: 'user',
+                loadComponent: () => import('../pages/user/user.component').then(component => component.UserComponent),
+            },
+            {
+                path: 'user/:id',
+                loadComponent: () => import('../pages/user/user.component').then(component => component.UserComponent),
+            },
+            {
                 path: 'settings',
                 loadComponent: () => import('../pages/settings/settings.component').then(component => component.SettingsComponent),
             },

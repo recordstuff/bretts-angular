@@ -45,6 +45,7 @@ $theme: mat.define-light-theme((
     --app-page-background: #83d0c9;
     --app-primary: #009688;
     --app-surface: #e5f7f5;
+    --app-field-surface: #d4f0ed;
     --app-surface-strong: #65c3ba;
     --app-accent: #35a79c;
     --app-text: #073b36;
@@ -63,6 +64,44 @@ body.mat-app-background {
     background: var(--app-page-background);
     color: var(--app-text);
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-form-field .mdc-text-field--outlined {
+    background: var(--app-field-surface);
+    border-radius: 0.25rem;
+}
+
+.mat-mdc-button-base:not(:disabled) {
+    transition: background-color 140ms ease, box-shadow 140ms ease, color 140ms ease,
+        filter 140ms ease, transform 90ms ease;
+}
+
+.mat-mdc-outlined-button:hover:not(:disabled),
+.mat-mdc-button:hover:not(:disabled),
+.mat-mdc-icon-button:hover:not(:disabled),
+button.mat-mdc-list-item:hover:not(:disabled) {
+    background: #bfe9e5;
+    color: var(--app-link-hover);
+}
+
+.mat-mdc-button-base:hover:not(:disabled),
+button.mat-mdc-list-item:hover:not(:disabled) {
+    filter: brightness(0.9) saturate(1.12);
+}
+
+.mat-mdc-outlined-button:active:not(:disabled),
+.mat-mdc-button:active:not(:disabled),
+.mat-mdc-icon-button:active:not(:disabled),
+button.mat-mdc-list-item:active:not(:disabled) {
+    background: #83d0c9;
+    color: var(--app-link-active);
+}
+
+.mat-mdc-button-base:active:not(:disabled),
+button.mat-mdc-list-item:active:not(:disabled) {
+    box-shadow: inset 0 0.15rem 0.35rem rgb(0 77 70 / 32%);
+    filter: brightness(0.78) saturate(1.16);
+    transform: translateY(2px);
 }
 
 a {

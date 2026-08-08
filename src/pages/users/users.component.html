@@ -1,0 +1,72 @@
+<section class="users-page">
+    <a class="add-user" mat-stroked-button routerLink="/user">
+        <mat-icon aria-hidden="true">add</mat-icon>
+        Add User
+    </a>
+
+    <div class="filters">
+        <mat-form-field appearance="outline">
+            <mat-label>Search Text</mat-label>
+            <input matInput type="search" [formControl]="searchText">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Has Role</mat-label>
+            <mat-select [formControl]="roleFilter">
+                @for (role of roles; track role.value) {
+                    <mat-option [value]="role.value">{{ role.name }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="users-table-container">
+        <table
+            aria-label="Users"
+            mat-table
+            matSort
+            matSortActive="DisplayName"
+            matSortDirection="asc"
+            matSortDisableClear
+            [dataSource]="paginationResult().Items"
+            (matSortChange)="sortChanged($event)"
+        >
+            <ng-container matColumnDef="Guid">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let user">
+                    <a [routerLink]="['/user', user.Guid]">{{ user.Guid }}</a>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DisplayName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Display Name</th>
+                <td mat-cell *matCellDef="let user">{{ user.DisplayName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                <td mat-cell *matCellDef="let user">{{ user.Email }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <tr class="empty-row" *matNoDataRow>
+                <td [attr.colspan]="displayedColumns.length">No users matched the current filters.</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <span>Page {{ paginationResult().Page }} of {{ paginationResult().PageCount }}</span>
+        <mat-paginator
+            aria-label="Select users page"
+            [length]="paginationResult().ItemCount"
+            [pageIndex]="page() - 1"
+            [pageSize]="pageSize"
+            [hidePageSize]="true"
+            [showFirstLastButtons]="true"
+            (page)="pageChanged($event)"
+        />
+    </div>
+</section>

@@ -10,4 +10,15 @@
     display: grid;
     place-items: center;
     background: rgb(0 77 70 / 45%);
+    animation: reveal-please-wait 0s 150ms both;
+}
+
+@keyframes reveal-please-wait {
+    from {
+        visibility: hidden;
+    }
+
+    to {
+        visibility: visible;
+    }
 }

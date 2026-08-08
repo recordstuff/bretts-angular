@@ -1,0 +1,33 @@
+<section class="items-selector" [attr.aria-label]="label">
+    <p class="selector-label">{{ label }}</p>
+    <div class="selector-grid">
+        <div class="selector-list">
+            <mat-form-field appearance="outline">
+                <mat-label>Filter Selected</mat-label>
+                <input matInput type="search" [(ngModel)]="selectedFilter">
+            </mat-form-field>
+            <mat-nav-list aria-label="Selected roles">
+                @for (item of filteredSelectedItems; track item.Guid) {
+                    <button mat-list-item type="button" (click)="deselect(item)">{{ item.Name }}</button>
+                }
+            </mat-nav-list>
+        </div>
+
+        <div class="selector-actions">
+            <button mat-stroked-button type="button" aria-label="Select all roles" (click)="selectAll()">&lt;&lt;</button>
+            <button mat-stroked-button type="button" aria-label="Deselect all roles" (click)="deselectAll()">&gt;&gt;</button>
+        </div>
+
+        <div class="selector-list">
+            <mat-form-field appearance="outline">
+                <mat-label>Filter Available</mat-label>
+                <input matInput type="search" [(ngModel)]="availableFilter">
+            </mat-form-field>
+            <mat-nav-list aria-label="Available roles">
+                @for (item of filteredAvailableItems; track item.Guid) {
+                    <button mat-list-item type="button" (click)="select(item)">{{ item.Name }}</button>
+                }
+            </mat-nav-list>
+        </div>
+    </div>
+</section>
