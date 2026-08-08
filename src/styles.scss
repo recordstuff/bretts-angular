@@ -65,6 +65,15 @@ body.mat-app-background {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.mat-mdc-form-field .mdc-text-field--outlined {
+    background: var(--app-surface);
+    border-radius: 0.25rem;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__notch {
+    background: var(--app-surface);
+}
+
 a {
     color: var(--app-link);
     text-decoration-thickness: 0.08em;
