@@ -4,3 +4,10 @@ export interface PaginationResult<T> {
     ItemCount: number
     Items: T[]
 }
+
+export const emptyPaginationResult = <T>(): PaginationResult<T> => ({
+    Page: 1,
+    PageCount: 0,
+    ItemCount: 0,
+    Items: [],
+})

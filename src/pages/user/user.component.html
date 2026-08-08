@@ -1,0 +1,64 @@
+<form class="user-form" [formGroup]="form" (ngSubmit)="save()">
+    @if (isEdit()) {
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Id</mat-label>
+            <input matInput [value]="user().Guid" disabled>
+        </mat-form-field>
+    }
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Display Name</mat-label>
+        <input matInput autocomplete="name" formControlName="DisplayName" required>
+        @if (form.controls.DisplayName.touched && form.controls.DisplayName.hasError('required')) {
+            <mat-error>Display Name is required.</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput autocomplete="email" formControlName="Email" required type="email">
+        @if (form.controls.Email.touched && form.controls.Email.hasError('required')) {
+            <mat-error>Email is required.</mat-error>
+        }
+        @if (form.controls.Email.touched && form.controls.Email.hasError('email')) {
+            <mat-error>Enter a valid email address.</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone</mat-label>
+        <input matInput autocomplete="tel" formControlName="Phone" type="tel">
+    </mat-form-field>
+
+    @if (!isEdit()) {
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput autocomplete="new-password" formControlName="Password" required type="password">
+            @if (form.controls.Password.touched && form.controls.Password.hasError('required')) {
+                <mat-error>Password is required.</mat-error>
+            }
+        </mat-form-field>
+    }
+
+    <app-items-selector
+        class="full-width"
+        label="Roles"
+        [allItems]="roles()"
+        [initiallySelectedItems]="selectedRoles()"
+        (selectedChange)="rolesChanged($event)"
+    />
+
+    <div class="form-actions full-width">
+        <button mat-flat-button color="primary" type="submit" [disabled]="isSaving()">
+            {{ isEdit() ? 'Save' : 'Add' }}
+        </button>
+        <button class="cancel-button" mat-button type="button" [disabled]="isSaving()" (click)="cancel()">
+            {{ isEdit() ? 'Reset Form' : 'Cancel' }}
+        </button>
+        @if (isEdit()) {
+            <button class="delete-button" mat-flat-button color="warn" type="button" [disabled]="isSaving()" (click)="confirmDelete()">
+                Delete
+            </button>
+        }
+    </div>
+</form>

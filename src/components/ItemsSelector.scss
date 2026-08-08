@@ -1,0 +1,55 @@
+.items-selector {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.selector-label {
+    margin: 0;
+}
+
+.selector-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(5rem, 2fr) minmax(0, 5fr);
+    align-items: start;
+    gap: 1rem;
+}
+
+.selector-list {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--app-accent);
+    border-radius: 0.35rem;
+    background: var(--app-surface);
+}
+
+.selector-list mat-form-field {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.75rem 0.75rem 0;
+}
+
+.selector-list mat-nav-list {
+    min-height: 7rem;
+    padding-top: 0;
+}
+
+.selector-actions {
+    display: grid;
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+.selector-actions button {
+    border-color: var(--app-accent);
+}
+
+@media (max-width: 700px) {
+    .selector-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .selector-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding-top: 0;
+    }
+}
