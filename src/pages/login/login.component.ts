@@ -8,20 +8,21 @@ import {
 } from '../../models/UserCredentials';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
 import { UserClient } from '../../services/UserClient';
+import { AppSnackbarService } from '../../components/AppSnackbar';
 
 @Component({
     templateUrl: 'login.component.html',
     styleUrl: 'login.component.scss',
-    imports: [FormsModule, MatFormFieldModule, MatInputModule, TextFieldModule, MatButtonModule, MatGridListModule],
+    imports: [FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule],
     standalone: true
 })
 
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private readonly jwtUtil: JwtUtil,
         private readonly router: Router,
+        private readonly snackbar: AppSnackbarService,
         private readonly userClient: UserClient,
     ) {
 
@@ -38,7 +40,6 @@ export class LoginComponent implements OnInit {
 
     UserCredentials: UserCredentials = defaultUserCredentials()
     isLoggingIn = false
-    loginError = ''
 
     ngOnInit(): void {
         this.jwtUtil.clear()
@@ -56,6 +57,10 @@ export class LoginComponent implements OnInit {
         this.populateCredentials(userOnlyUserCredentials())
     }
 
+    credentialsChanged(): void {
+        this.snackbar.dismiss()
+    }
+
     handleClick(): void {
         if (this.isLoggingIn
          || this.UserCredentials.Email.trim().length === 0
@@ -64,7 +69,7 @@ export class LoginComponent implements OnInit {
         }
 
         this.isLoggingIn = true
-        this.loginError = ''
+        this.snackbar.dismiss()
 
         this.userClient.login(this.UserCredentials)
             .pipe(
@@ -77,15 +82,17 @@ export class LoginComponent implements OnInit {
                     void this.router.navigateByUrl('/')
                 },
                 error: (error: HttpErrorResponse) => {
-                    this.loginError = error.status === HttpStatusCode.Unauthorized
+                    const message = error.status === HttpStatusCode.Unauthorized
                         ? 'The Email or Password was incorrect.'
                         : 'The login service is unavailable. Please try again.'
+
+                    this.snackbar.show(message, 'warning')
                 },
             })
     }
 
     private populateCredentials(credentials: UserCredentials): void {
         this.UserCredentials = credentials
-        this.loginError = ''
+        this.snackbar.dismiss()
     }
 }

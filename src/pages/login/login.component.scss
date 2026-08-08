@@ -1,25 +1,107 @@
-.login-container {
-    display: flex;
-    flex-direction: column;
-    margin: 2em;
+:host {
+    display: block;
+}
 
-    > * {
-        width: 100%;
-      }
+.login-page {
+    box-sizing: border-box;
+    display: grid;
+    min-height: 100dvh;
+    padding: clamp(1rem, 4vw, 3rem);
+    place-items: center;
+}
 
-      // hardcode this for now TODO
-      @media (min-width: 992px) {
-        margin-left: 25vw;
-        margin-right: 25vw;
-    }
-  }
+.login-card {
+    display: grid;
+    width: min(100%, 56rem);
+    overflow: hidden;
+    background: var(--app-surface);
+    border-color: var(--app-accent);
+}
 
-.login-error {
-    color: #ff8a80;
+.login-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.login-introduction {
+    grid-column: 1 / -1;
+    margin: 0;
 }
 
 .credential-actions {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.credential-actions button {
+    border-color: var(--app-accent);
+}
+
+.login-submit {
+    grid-column: 1 / -1;
+}
+
+.project-footer {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 0.75rem 1.5rem;
+}
+
+.project-notice {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    align-items: flex-start;
+    gap: 0.75rem;
+    min-width: 0;
+    margin: 0;
+}
+
+.construction-icon {
+    display: inline-grid;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    color: #111111;
+    background: #fbc02d;
+    border: 2px solid #111111;
+    border-radius: 0.25rem;
+    place-items: center;
+}
+
+.construction-icon mat-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+}
+
+.site-link {
+    justify-self: end;
+    white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+    .login-page {
+        place-items: start center;
+    }
+
+    .login-grid,
+    .credential-actions {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .credential-actions,
+    .login-submit,
+    .login-introduction,
+    .project-footer {
+        grid-column: auto;
+    }
+
+    .project-footer {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }

@@ -1,0 +1,7 @@
+<ng-content></ng-content>
+
+@if (pleaseWait.isWaiting()) {
+    <div class="please-wait-backdrop" role="status" aria-label="Please wait">
+        <mat-spinner color="primary" diameter="64" aria-label="Loading"></mat-spinner>
+    </div>
+}

@@ -13,4 +13,11 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
+
+  it('places every routed screen inside the Please Wait parent', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('app-please-wait router-outlet')).not.toBeNull();
+  });
 });

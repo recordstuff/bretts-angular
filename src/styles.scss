@@ -2,31 +2,100 @@
 
 @include mat.core();
 
-$primary: mat.define-palette(mat.$blue-palette, 500);
-$accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$warn: mat.define-palette(mat.$red-palette);
+$teal-palette: (
+    50: #e5f7f5,
+    100: #bfe9e5,
+    200: #83d0c9,
+    300: #65c3ba,
+    400: #54b2a9,
+    500: #35a79c,
+    600: #009688,
+    700: #00877a,
+    800: #006f65,
+    900: #004d46,
+    contrast: (
+        50: #073b36,
+        100: #073b36,
+        200: #073b36,
+        300: #073b36,
+        400: #073b36,
+        500: #073b36,
+        600: #073b36,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+    ),
+);
 
-$theme: mat.define-dark-theme((color: (primary: $primary,
-                accent: $accent,
-                warn: $warn,
-            )));
-
-$background: map-get($theme, background);
-$background: map_merge($background, (background: #000000));
-$theme: map_merge($theme, (background: $background));
+$primary: mat.define-palette($teal-palette, 600, 200, 800);
+$accent: mat.define-palette($teal-palette, 400, 100, 700);
+$theme: mat.define-light-theme((
+    color: (
+        primary: $primary,
+        accent: $accent,
+        warn: mat.define-palette(mat.$red-palette),
+    ),
+    density: 0,
+));
 
 @include mat.all-component-themes($theme);
 
-a {
-    color: #2196f3;
+:root {
+    color-scheme: light;
+    --app-page-background: #83d0c9;
+    --app-primary: #009688;
+    --app-surface: #e5f7f5;
+    --app-surface-strong: #65c3ba;
+    --app-accent: #35a79c;
+    --app-text: #073b36;
+    --app-link: #004d46;
+    --app-link-hover: #003c37;
+    --app-link-active: #002b27;
 }
 
 html,
 body {
-    height: 100%;
+    min-height: 100%;
 }
 
-body {
+body.mat-app-background {
     margin: 0;
+    background: var(--app-page-background);
+    color: var(--app-text);
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+    color: var(--app-link);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+a:hover {
+    color: var(--app-link-hover);
+}
+
+a:active {
+    color: var(--app-link-active);
+}
+
+.mat-mdc-snack-bar-container.app-snackbar-panel {
+    --mdc-snackbar-supporting-text-color: #ffffff;
+    --mat-snack-bar-button-color: #ffffff;
+}
+
+.mat-mdc-snack-bar-container.app-snackbar-success {
+    --mdc-snackbar-container-color: #2e7d32;
+}
+
+.mat-mdc-snack-bar-container.app-snackbar-info {
+    --mdc-snackbar-container-color: #0288d1;
+}
+
+.mat-mdc-snack-bar-container.app-snackbar-warning {
+    --mdc-snackbar-container-color: #ed6c02;
+}
+
+.mat-mdc-snack-bar-container.app-snackbar-error {
+    --mdc-snackbar-container-color: #d32f2f;
 }
