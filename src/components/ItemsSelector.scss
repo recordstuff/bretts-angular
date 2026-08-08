@@ -19,7 +19,16 @@
     overflow: hidden;
     border: 1px solid var(--app-accent);
     border-radius: 0.35rem;
-    background: var(--app-surface);
+    background: var(--app-field-surface);
+}
+
+.selector-list button[mat-list-item] {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
 }
 
 .selector-list mat-form-field {
