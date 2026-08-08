@@ -1,25 +1,61 @@
-.login-container {
-    display: flex;
-    flex-direction: column;
-    margin: 2em;
+:host {
+    display: block;
+}
 
-    > * {
-        width: 100%;
-      }
+.login-page {
+    box-sizing: border-box;
+    display: grid;
+    min-height: 100dvh;
+    padding: clamp(1rem, 4vw, 3rem);
+    place-items: center;
+}
 
-      // hardcode this for now TODO
-      @media (min-width: 992px) {
-        margin-left: 25vw;
-        margin-right: 25vw;
-    }
-  }
+.login-card {
+    display: grid;
+    gap: 1.5rem;
+    width: min(100%, 56rem);
+    overflow: hidden;
+    background: var(--app-surface);
+    border-color: var(--app-accent);
+}
 
-.login-error {
-    color: #ff8a80;
+.login-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
 }
 
 .credential-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.login-submit {
+    grid-column: 1 / -1;
+}
+
+.project-notice {
+    background: var(--app-surface-strong);
+}
+
+.project-notice p {
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .login-page {
+        place-items: start center;
+    }
+
+    .login-grid,
+    .credential-actions {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .credential-actions,
+    .login-submit {
+        grid-column: auto;
+    }
 }

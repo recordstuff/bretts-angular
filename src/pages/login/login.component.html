@@ -1,38 +1,68 @@
-<div class="login-container">
-    <div class="credential-actions" role="group" aria-label="Populate with credentials">
-        <button mat-button type="button" (click)="populateWithAdminAndUserCredentials()">
-            Admin and User rights
-        </button>
-        <button mat-button type="button" (click)="populateWithAdminOnlyCredentials()">
-            Admin rights only
-        </button>
-        <button mat-button type="button" (click)="populateWithUserOnlyCredentials()">
-            User rights only
-        </button>
-    </div>
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="UserCredentials.Email" type="email" placeholder="Email">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="UserCredentials.Password" type="password" placeholder="Password" />
-    </mat-form-field>
-    <button
-        color="primary"
-        mat-stroked-button
-        type="button"
-        [disabled]="isLoggingIn"
-        (click)="handleClick()"
-    >
-        {{ isLoggingIn ? 'Logging in…' : 'Login' }}
-    </button>
-    @if (loginError.length > 0) {
-        <p class="login-error" role="alert">{{ loginError }}</p>
-    }
-    <p>
-        This is VERY incomplete. Please see the
-        <a href="https://nextjs.brettdrake.org/">NextJS React project</a>
-        or <a href="https://solidjs.brettdrake.org/">SolidJS project</a>.
-    </p>
-</div>
+<main class="login-page">
+    <mat-card class="login-card" appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Angular Sample Login</mat-card-title>
+            <mat-card-subtitle>Select a sample account or edit the credentials directly.</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form class="login-grid" (ngSubmit)="handleClick()">
+                <div class="credential-actions" role="group" aria-label="Populate with credentials">
+                    <button mat-stroked-button type="button" (click)="populateWithAdminAndUserCredentials()">
+                        Admin and User rights
+                    </button>
+                    <button mat-stroked-button type="button" (click)="populateWithAdminOnlyCredentials()">
+                        Admin rights only
+                    </button>
+                    <button mat-stroked-button type="button" (click)="populateWithUserOnlyCredentials()">
+                        User rights only
+                    </button>
+                </div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input
+                        matInput
+                        required
+                        autocomplete="username"
+                        name="email"
+                        type="email"
+                        [(ngModel)]="UserCredentials.Email"
+                        (ngModelChange)="credentialsChanged()"
+                    >
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input
+                        matInput
+                        required
+                        autocomplete="current-password"
+                        name="password"
+                        type="password"
+                        [(ngModel)]="UserCredentials.Password"
+                        (ngModelChange)="credentialsChanged()"
+                    >
+                </mat-form-field>
+
+                <button
+                    class="login-submit"
+                    color="primary"
+                    mat-flat-button
+                    type="submit"
+                    [disabled]="isLoggingIn"
+                >
+                    {{ isLoggingIn ? 'Logging in…' : 'Login' }}
+                </button>
+            </form>
+        </mat-card-content>
+
+        <mat-card-content class="project-notice">
+            <p>
+                This is VERY incomplete. Please see the
+                <a href="https://nextjs.brettdrake.org/">NextJS React project</a>
+                or <a href="https://solidjs.brettdrake.org/">SolidJS project</a>.
+            </p>
+        </mat-card-content>
+    </mat-card>
+</main>

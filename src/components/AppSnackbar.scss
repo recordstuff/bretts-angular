@@ -1,0 +1,11 @@
+.app-snackbar-content {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.app-snackbar-message {
+    line-height: 1.4;
+}
