@@ -1,4 +1,15 @@
 <div class="login-container">
+    <div class="credential-actions" role="group" aria-label="Populate with credentials">
+        <button mat-button type="button" (click)="populateWithAdminAndUserCredentials()">
+            Admin and User rights
+        </button>
+        <button mat-button type="button" (click)="populateWithAdminOnlyCredentials()">
+            Admin rights only
+        </button>
+        <button mat-button type="button" (click)="populateWithUserOnlyCredentials()">
+            User rights only
+        </button>
+    </div>
     <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput [(ngModel)]="UserCredentials.Email" type="email" placeholder="Email">
