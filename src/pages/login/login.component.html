@@ -1,10 +1,5 @@
 <main class="login-page">
     <mat-card class="login-card" appearance="outlined">
-        <mat-card-header>
-            <mat-card-title>Angular Sample Login</mat-card-title>
-            <mat-card-subtitle>Select a sample account or edit the credentials directly.</mat-card-subtitle>
-        </mat-card-header>
-
         <mat-card-content>
             <form class="login-grid" (ngSubmit)="handleClick()">
                 <div class="credential-actions" role="group" aria-label="Populate with credentials">
@@ -54,15 +49,13 @@
                 >
                     {{ isLoggingIn ? 'Logging in…' : 'Login' }}
                 </button>
-            </form>
-        </mat-card-content>
 
-        <mat-card-content class="project-notice">
-            <p>
-                This is VERY incomplete. Please see the
-                <a href="https://nextjs.brettdrake.org/">NextJS React project</a>
-                or <a href="https://solidjs.brettdrake.org/">SolidJS project</a>.
-            </p>
+                <p class="project-notice">
+                    This is VERY incomplete. Please see the
+                    <a href="https://nextjs.brettdrake.org/">NextJS React project</a>
+                    or <a href="https://solidjs.brettdrake.org/">SolidJS project</a>.
+                </p>
+            </form>
         </mat-card-content>
     </mat-card>
 </main>
