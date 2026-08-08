@@ -1,6 +1,11 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { JwtUtil } from '../../services/JwtUtil'
-import { defaultUserCredentials, UserCredentials } from '../../models/UserCredentials';
+import {
+    adminOnlyUserCredentials,
+    defaultUserCredentials,
+    userOnlyUserCredentials,
+    UserCredentials,
+} from '../../models/UserCredentials';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -39,6 +44,18 @@ export class LoginComponent implements OnInit {
         this.jwtUtil.clear()
     }
 
+    populateWithAdminAndUserCredentials(): void {
+        this.populateCredentials(defaultUserCredentials())
+    }
+
+    populateWithAdminOnlyCredentials(): void {
+        this.populateCredentials(adminOnlyUserCredentials())
+    }
+
+    populateWithUserOnlyCredentials(): void {
+        this.populateCredentials(userOnlyUserCredentials())
+    }
+
     handleClick(): void {
         if (this.isLoggingIn
          || this.UserCredentials.Email.trim().length === 0
@@ -65,5 +82,10 @@ export class LoginComponent implements OnInit {
                         : 'The login service is unavailable. Please try again.'
                 },
             })
+    }
+
+    private populateCredentials(credentials: UserCredentials): void {
+        this.UserCredentials = credentials
+        this.loginError = ''
     }
 }

@@ -17,3 +17,9 @@
 .login-error {
     color: #ff8a80;
 }
+
+.credential-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
