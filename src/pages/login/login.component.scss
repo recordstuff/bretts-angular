@@ -24,6 +24,11 @@
     gap: 1rem;
 }
 
+.login-introduction {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
 .credential-actions {
     display: grid;
     grid-column: 1 / -1;
@@ -56,6 +61,7 @@
 
     .credential-actions,
     .login-submit,
+    .login-introduction,
     .project-notice {
         grid-column: auto;
     }

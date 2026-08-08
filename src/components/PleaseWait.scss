@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    min-height: 100%;
+}
+
+.please-wait-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: grid;
+    place-items: center;
+    background: rgb(0 77 70 / 45%);
+}

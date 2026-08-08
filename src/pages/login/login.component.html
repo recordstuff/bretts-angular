@@ -2,6 +2,10 @@
     <mat-card class="login-card" appearance="outlined">
         <mat-card-content>
             <form class="login-grid" (ngSubmit)="handleClick()">
+                <p class="login-introduction">
+                    This is an Angular sample. Log in with Admin and User rights to see all the options including Users CRUD operations.
+                </p>
+
                 <div class="credential-actions" role="group" aria-label="Populate with credentials">
                     <button mat-stroked-button type="button" (click)="populateWithAdminAndUserCredentials()">
                         Admin and User rights
