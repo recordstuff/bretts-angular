@@ -11,5 +11,6 @@ export class BaconIpsumComponent implements OnInit {
 
     ngOnInit(): void {
         this.appState.setPageTitle('Bacon Ipsum')
+        this.appState.firstBreadcrumb({title: 'Bacon Ipsum', url: '/baconipsum'})
     }
 }

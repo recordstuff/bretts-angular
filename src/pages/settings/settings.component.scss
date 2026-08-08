@@ -1,4 +1,8 @@
 .task-table-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 56rem;
+    margin-inline: auto;
     overflow-x: auto;
     border: 1px solid #54b2a9;
     border-radius: 0.35rem;

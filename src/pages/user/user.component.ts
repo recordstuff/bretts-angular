@@ -64,7 +64,10 @@ export class UserComponent implements OnInit {
     ngOnInit(): void {
         this.userId = this.activatedRoute.snapshot.paramMap.get('id')
         this.isEdit.set(this.userId !== null)
-        this.appState.setPageTitle(this.isEdit() ? 'Edit User' : 'Add User')
+        const pageTitle = this.isEdit() ? 'Edit User' : 'Add User'
+        const url = this.userId === null ? '/user' : `/user/${this.userId}`
+        this.appState.setPageTitle(pageTitle)
+        this.appState.addBreadcrumb({title: pageTitle, url})
 
         if (!this.isEdit()) {
             this.form.controls.Password.addValidators(Validators.required)

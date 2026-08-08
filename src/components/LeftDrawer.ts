@@ -9,25 +9,45 @@ import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'
 import { map } from 'rxjs'
-import { DrawerMenuItem } from '../models/MenuOption'
+import { DrawerMenuItem, MenuOption } from '../models/MenuOption'
 import { JwtRole } from '../models/Jwt'
 import { AppStateService } from '../services/AppState'
 import { JwtUtil } from '../services/JwtUtil'
+import { BreadcrumbinatorComponent } from './Breadcruminator'
 
 const menuItems: DrawerMenuItem[] = [
-    { kind: 'option', text: 'Home', route: '/', icon: 'home', role: JwtRole.Any },
-    { kind: 'option', text: 'Grid Example', route: '/gridexample', icon: 'table_rows', role: JwtRole.User },
-    { kind: 'option', text: 'Example Two', route: '/exampletwo', icon: 'table_chart', role: JwtRole.User },
-    { kind: 'option', text: 'Bacon Ipsum', route: '/baconipsum', icon: 'agriculture', role: JwtRole.User },
+    {
+        kind: 'option', text: 'Home', route: '/', icon: 'home', role: JwtRole.Any,
+        breadcrumb: {title: 'Home', url: '/'},
+    },
+    {
+        kind: 'option', text: 'Grid Example', route: '/gridexample', icon: 'table_rows', role: JwtRole.User,
+        breadcrumb: {title: 'Grid Example', url: '/gridexample'},
+    },
+    {
+        kind: 'option', text: 'Example Two', route: '/exampletwo', icon: 'table_chart', role: JwtRole.User,
+        breadcrumb: {title: 'Example Two', url: '/exampletwo'},
+    },
+    {
+        kind: 'option', text: 'Bacon Ipsum', route: '/baconipsum', icon: 'agriculture', role: JwtRole.User,
+        breadcrumb: {title: 'Bacon Ipsum', url: '/baconipsum'},
+    },
     { kind: 'divider' },
-    { kind: 'option', text: 'Users', route: '/users', icon: 'people', role: JwtRole.Admin },
-    { kind: 'option', text: 'Settings', route: '/settings', icon: 'settings', role: JwtRole.Admin },
+    {
+        kind: 'option', text: 'Users', route: '/users', icon: 'people', role: JwtRole.Admin,
+        breadcrumb: {title: 'Users', url: '/users'},
+    },
+    {
+        kind: 'option', text: 'Settings', route: '/settings', icon: 'settings', role: JwtRole.Admin,
+        breadcrumb: {title: 'Settings', url: '/settings'},
+    },
 ]
 
 @Component({
     selector: 'app-left-drawer',
     standalone: true,
     imports: [
+        BreadcrumbinatorComponent,
         MatButtonModule,
         MatDividerModule,
         MatIconModule,
@@ -73,7 +93,9 @@ export class LeftDrawerComponent {
         this.mobileOpen.set(false)
     }
 
-    menuOptionSelected(): void {
+    menuOptionSelected(menuOption: MenuOption): void {
+        this.appState.firstBreadcrumb(menuOption.breadcrumb)
+
         if (this.isMobile()) {
             this.closeMobileMenu()
         }

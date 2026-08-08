@@ -21,7 +21,7 @@
                         [activated]="activeLink.isActive"
                         (pointerdown)="pointerInteraction()"
                         (keydown)="keyboardInteraction()"
-                        (click)="menuOptionSelected()"
+                        (click)="menuOptionSelected(menuItem)"
                     >
                         <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
                         <span matListItemTitle>{{ menuItem.text }}</span>
@@ -59,6 +59,7 @@
         </mat-toolbar>
 
         <main class="page-content">
+            <app-breadcrumbinator />
             <router-outlet></router-outlet>
         </main>
     </mat-sidenav-content>

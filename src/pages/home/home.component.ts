@@ -16,5 +16,6 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.appState.setPageTitle('Home')
+        this.appState.firstBreadcrumb({title: 'Home', url: '/'})
     }
 }

@@ -1,0 +1,14 @@
+import { Component, inject } from '@angular/core'
+import { RouterLink } from '@angular/router'
+import { AppStateService } from '../services/AppState'
+
+@Component({
+    selector: 'app-breadcrumbinator',
+    standalone: true,
+    imports: [RouterLink],
+    templateUrl: 'Breadcruminator.html',
+    styleUrl: 'Breadcruminator.scss',
+})
+export class BreadcrumbinatorComponent {
+    readonly appState = inject(AppStateService)
+}
