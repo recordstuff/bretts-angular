@@ -48,10 +48,22 @@
     color: inherit;
     font-size: 0.8rem;
     text-decoration: none;
+    transition: color 120ms ease-out;
 }
 
 .logout-link:hover {
+    color: var(--app-surface);
     font-weight: 500;
+}
+
+.logout-link:active {
+    color: var(--app-page-background);
+}
+
+.logout-link:focus-visible {
+    color: var(--app-surface);
+    outline: 2px solid var(--app-surface);
+    outline-offset: 2px;
 }
 
 .page-content {
