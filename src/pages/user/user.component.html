@@ -33,7 +33,7 @@
     @if (!isEdit()) {
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Password</mat-label>
-            <input matInput autocomplete="new-password" formControlName="Password" required type="password">
+            <input matInput autocomplete="new-password" formControlName="Password" required type="text">
             @if (form.controls.Password.touched && form.controls.Password.hasError('required')) {
                 <mat-error>Password is required.</mat-error>
             }
