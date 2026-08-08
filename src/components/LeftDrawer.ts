@@ -51,10 +51,19 @@ export class LeftDrawerComponent {
         { initialValue: this.breakpointObserver.isMatched(Breakpoints.XSmall) },
     )
     readonly mobileOpen = signal(false)
+    readonly showRestoredFocus = signal(false)
     readonly displayName = this.jwtUtil.displayName
     readonly visibleMenuItems = menuItems.filter(menuItem => menuItem.kind === 'divider'
         ? this.jwtUtil.hasMultipleRoles()
         : this.jwtUtil.hasRole(menuItem.role))
+
+    pointerInteraction(): void {
+        this.showRestoredFocus.set(false)
+    }
+
+    keyboardInteraction(): void {
+        this.showRestoredFocus.set(true)
+    }
 
     toggleMobileMenu(): void {
         this.mobileOpen.update(isOpen => !isOpen)

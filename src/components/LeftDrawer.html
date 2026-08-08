@@ -19,6 +19,8 @@
                         #activeLink="routerLinkActive"
                         [routerLinkActiveOptions]="{ exact: menuItem.route === '/' }"
                         [activated]="activeLink.isActive"
+                        (pointerdown)="pointerInteraction()"
+                        (keydown)="keyboardInteraction()"
                         (click)="menuOptionSelected()"
                     >
                         <mat-icon matListItemIcon>{{ menuItem.icon }}</mat-icon>
@@ -33,11 +35,15 @@
         <mat-toolbar class="app-toolbar" color="primary">
             @if (isMobile()) {
                 <button
+                    class="menu-button"
                     mat-icon-button
                     type="button"
                     aria-controls="mobile-navigation-drawer"
                     aria-label="Toggle navigation menu"
                     [attr.aria-expanded]="mobileOpen()"
+                    [class.suppress-program-focus]="!showRestoredFocus()"
+                    (pointerdown)="pointerInteraction()"
+                    (keydown)="keyboardInteraction()"
                     (click)="toggleMobileMenu()"
                 >
                     <mat-icon>menu</mat-icon>
