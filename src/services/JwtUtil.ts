@@ -7,34 +7,33 @@ export class JwtUtil {
     private readonly expirationName: string = "accessTokenExpiration"
     
     public get isExpired() : boolean {
-        const expireSecondsStr = localStorage.getItem(this.expirationName)
+        const expireSecondsStr = sessionStorage.getItem(this.expirationName)
 
-        if (expireSecondsStr === null) return true
+        if (expireSecondsStr == null) return true
 
-        const expireSeconds = parseInt(expireSecondsStr)
+        const expireSeconds = Number.parseInt(expireSecondsStr, 10)
 
         return expireSeconds <= Date.now() / 1000
     }
 
     public get token(): string {
-        return localStorage.getItem(this.encodedTokenName) ?? ''
+        return sessionStorage.getItem(this.encodedTokenName) ?? ''
     }
 
     public set token(encodedToken: string) {
         try {
             if (encodedToken.length > 0) {
                 const parts = encodedToken.split('.')
-                let body = parts[1].replace('-', '+').replace('_', '/')
-                const padding = 4 - (body.length % 4)
-    
-                if (padding > 0) {
-                    body = body.padEnd(padding)
-                }
+                let body = parts[1]
+                    .replaceAll('-', '+')
+                    .replaceAll('_', '/')
+                const padding = (4 - body.length % 4) % 4
+                body = body.padEnd(body.length + padding, '=')
 
                 const jwt: Jwt = JSON.parse(atob(body))
 
-                localStorage.setItem(this.encodedTokenName, encodedToken)
-                localStorage.setItem(this.expirationName, jwt.exp.toString())                
+                sessionStorage.setItem(this.encodedTokenName, encodedToken)
+                sessionStorage.setItem(this.expirationName, jwt.exp.toString())
 
                 return
             }
@@ -47,7 +46,7 @@ export class JwtUtil {
     }
 
     public clear(): void {
-        localStorage.removeItem(this.encodedTokenName)
-        localStorage.removeItem(this.expirationName)
+        sessionStorage.removeItem(this.encodedTokenName)
+        sessionStorage.removeItem(this.expirationName)
     }
 }

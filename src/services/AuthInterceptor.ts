@@ -1,22 +1,31 @@
-import { Injectable } from "@angular/core";
-import { JwtUtil } from "../services/JwtUtil";
-import { HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { environment } from '../environments/environment';
+import { JwtUtil } from './JwtUtil';
 
-@Injectable({ providedIn: 'root' })
-export class AuthInterceptor implements HttpInterceptor {
+const ABSOLUTE_URL = /^[a-z][a-z\d+.-]*:\/\//i;
 
-    constructor(private jwtUtil: JwtUtil) { }
+const apiUrl = (path: string): string =>
+    `${environment.apiUrl.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
 
-    intercept(req: HttpRequest<any>, next: HttpHandler) {
-        const token = this.jwtUtil.token
-
-// TODO: you are here get base url from environment.ts and replace baseurl in string below. set other headers like the cors stuff
-
-        const authReq = req.clone({
-            url: `baseurl/${req.url}`,
-            headers: req.headers.set('Authorization', token)
-        })
-
-        return next.handle(authReq);
+export const authInterceptor: HttpInterceptorFn = (request, next) => {
+    if (ABSOLUTE_URL.test(request.url)) {
+        return next(request);
     }
-}
+
+    const token = inject(JwtUtil).token;
+    const setHeaders: Record<string, string> = {
+        Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+    };
+
+    if (token.length > 0) {
+        setHeaders['Authorization'] = `Bearer ${token}`;
+    }
+
+    return next(request.clone({
+        setHeaders,
+        url: apiUrl(request.url),
+        withCredentials: true,
+    }));
+};

@@ -13,7 +13,7 @@ RUN npm install
 # Copy the entire app to the Docker image
 COPY . .
 
-# Build the React app for production
+# Build the Angular app for production
 RUN npm run build
 
 # Install serve to serve the production build

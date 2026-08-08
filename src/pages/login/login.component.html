@@ -7,7 +7,18 @@
         <mat-label>Password</mat-label>
         <input matInput [(ngModel)]="UserCredentials.Password" type="password" placeholder="Password" />
     </mat-form-field>
-    <button color="primary" mat-stroked-button (click)="handleClick($event)">Login</button>
+    <button
+        color="primary"
+        mat-stroked-button
+        type="button"
+        [disabled]="isLoggingIn"
+        (click)="handleClick()"
+    >
+        {{ isLoggingIn ? 'Logging in…' : 'Login' }}
+    </button>
+    @if (loginError.length > 0) {
+        <p class="login-error" role="alert">{{ loginError }}</p>
+    }
     <p>
         This is the Angular frontend. Go to the <a href="http://brettdrake.org/">React frontend</a>.
     </p>

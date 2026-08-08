@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { JwtUtil } from '../../services/JwtUtil'
 import { defaultUserCredentials, UserCredentials } from '../../models/UserCredentials';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,11 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
+import { UserClient } from '../../services/UserClient';
 
 @Component({
     templateUrl: 'login.component.html',
@@ -16,18 +20,50 @@ import { HttpClient } from '@angular/common/http';
     standalone: true
 })
 
-export class LoginComponent { 
-    constructor(private jwtUtil: JwtUtil, private httpClient: HttpClient) {
+export class LoginComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef)
+
+    constructor(
+        private readonly jwtUtil: JwtUtil,
+        private readonly router: Router,
+        private readonly userClient: UserClient,
+    ) {
 
     }
 
     UserCredentials: UserCredentials = defaultUserCredentials()
+    isLoggingIn = false
+    loginError = ''
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.jwtUtil.clear()
     }
 
-    handleClick(event: MouseEvent) : void {
-        const reply = this.httpClient.get("blah").subscribe()
+    handleClick(): void {
+        if (this.isLoggingIn
+         || this.UserCredentials.Email.trim().length === 0
+         || this.UserCredentials.Password.length === 0) {
+            return
+        }
+
+        this.isLoggingIn = true
+        this.loginError = ''
+
+        this.userClient.login(this.UserCredentials)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                finalize(() => this.isLoggingIn = false),
+            )
+            .subscribe({
+                next: loginSession => {
+                    this.jwtUtil.token = loginSession.Token
+                    void this.router.navigateByUrl('/')
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.loginError = error.status === HttpStatusCode.Unauthorized
+                        ? 'The Email or Password was incorrect.'
+                        : 'The login service is unavailable. Please try again.'
+                },
+            })
     }
 }
