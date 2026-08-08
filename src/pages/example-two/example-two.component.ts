@@ -15,5 +15,6 @@ export class ExampleTwoComponent implements OnInit {
 
     ngOnInit(): void {
         this.appState.setPageTitle('Example Two')
+        this.appState.firstBreadcrumb({title: 'Example Two', url: '/exampletwo'})
     }
 }

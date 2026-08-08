@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
 
     ngOnInit(): void {
         this.appState.setPageTitle('Settings')
+        this.appState.firstBreadcrumb({title: 'Settings', url: '/settings'})
     }
 
     throwError(): void {

@@ -14,5 +14,6 @@ export class GridExampleComponent implements OnInit {
 
     ngOnInit(): void {
         this.appState.setPageTitle('Grid Example')
+        this.appState.firstBreadcrumb({title: 'Grid Example', url: '/gridexample'})
     }
 }

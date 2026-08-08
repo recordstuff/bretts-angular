@@ -69,6 +69,7 @@ export class UsersComponent implements OnInit {
 
     ngOnInit(): void {
         this.appState.setPageTitle('Users')
+        this.appState.firstBreadcrumb({title: 'Users', url: '/users'})
 
         merge(
             this.searchText.valueChanges.pipe(debounceTime(250), distinctUntilChanged()),

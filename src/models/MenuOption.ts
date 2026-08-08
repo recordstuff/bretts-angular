@@ -1,4 +1,5 @@
 import { JwtRole } from './Jwt'
+import { VisitedPage } from './VisitedPage'
 
 export interface MenuOption {
     kind: 'option'
@@ -6,6 +7,7 @@ export interface MenuOption {
     route: string
     icon: string
     role: JwtRole
+    breadcrumb: VisitedPage
 }
 
 export interface MenuDivider {
