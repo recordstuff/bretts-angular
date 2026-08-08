@@ -27,7 +27,8 @@ describe('JwtUtil', () => {
             iss: 'sample-issuer',
             aud: 'sample-audience',
         }
-        const encodedToken = `header.${btoa(JSON.stringify(jwt))}.signature`
+        const encodedBody = btoa(JSON.stringify(jwt)).replace(/=+$/, '')
+        const encodedToken = `header.${encodedBody}.signature`
 
         jwtUtil.token = encodedToken
 

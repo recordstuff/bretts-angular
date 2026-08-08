@@ -13,7 +13,7 @@ export class JwtUtil {
 
         const expireSeconds = Number.parseInt(expireSecondsStr, 10)
 
-        return !Number.isFinite(expireSeconds) || expireSeconds <= Date.now() / 1000
+        return expireSeconds <= Date.now() / 1000
     }
 
     public get token(): string {
@@ -24,10 +24,11 @@ export class JwtUtil {
         try {
             if (encodedToken.length > 0) {
                 const parts = encodedToken.split('.')
-                const body = parts[1]
-                    .replace(/-/g, '+')
-                    .replace(/_/g, '/')
-                    .padEnd(Math.ceil(parts[1].length / 4) * 4, '=')
+                let body = parts[1]
+                    .replaceAll('-', '+')
+                    .replaceAll('_', '/')
+                const padding = (4 - body.length % 4) % 4
+                body = body.padEnd(body.length + padding, '=')
 
                 const jwt: Jwt = JSON.parse(atob(body))
 
