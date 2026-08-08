@@ -1,4 +1,5 @@
-import { Injectable } from "@angular/core"
+import { isPlatformBrowser } from "@angular/common"
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core"
 import { Jwt } from "../models/Jwt"
 
 @Injectable({providedIn: 'root'})
@@ -6,35 +7,43 @@ export class JwtUtil {
     private readonly encodedTokenName: string = "accessToken"
     private readonly expirationName: string = "accessTokenExpiration"
     
+    constructor(@Inject(PLATFORM_ID) private readonly platformId: object) { }
+
+    private get storage(): Storage | null {
+        return isPlatformBrowser(this.platformId) ? localStorage : null
+    }
+
     public get isExpired() : boolean {
-        const expireSecondsStr = localStorage.getItem(this.expirationName)
+        const expireSecondsStr = this.storage?.getItem(this.expirationName)
 
-        if (expireSecondsStr === null) return true
+        if (expireSecondsStr == null) return true
 
-        const expireSeconds = parseInt(expireSecondsStr)
+        const expireSeconds = Number.parseInt(expireSecondsStr, 10)
 
-        return expireSeconds <= Date.now() / 1000
+        return !Number.isFinite(expireSeconds) || expireSeconds <= Date.now() / 1000
     }
 
     public get token(): string {
-        return localStorage.getItem(this.encodedTokenName) ?? ''
+        return this.storage?.getItem(this.encodedTokenName) ?? ''
     }
 
     public set token(encodedToken: string) {
+        const storage = this.storage
+
+        if (storage === null) return
+
         try {
             if (encodedToken.length > 0) {
                 const parts = encodedToken.split('.')
-                let body = parts[1].replace('-', '+').replace('_', '/')
-                const padding = 4 - (body.length % 4)
-    
-                if (padding > 0) {
-                    body = body.padEnd(padding)
-                }
+                const body = parts[1]
+                    .replace(/-/g, '+')
+                    .replace(/_/g, '/')
+                    .padEnd(Math.ceil(parts[1].length / 4) * 4, '=')
 
                 const jwt: Jwt = JSON.parse(atob(body))
 
-                localStorage.setItem(this.encodedTokenName, encodedToken)
-                localStorage.setItem(this.expirationName, jwt.exp.toString())                
+                storage.setItem(this.encodedTokenName, encodedToken)
+                storage.setItem(this.expirationName, jwt.exp.toString())
 
                 return
             }
@@ -47,7 +56,7 @@ export class JwtUtil {
     }
 
     public clear(): void {
-        localStorage.removeItem(this.encodedTokenName)
-        localStorage.removeItem(this.expirationName)
+        this.storage?.removeItem(this.encodedTokenName)
+        this.storage?.removeItem(this.expirationName)
     }
 }

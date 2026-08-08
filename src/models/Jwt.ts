@@ -6,3 +6,9 @@ export interface Jwt {
     iss: string
     aud: string
 }
+
+export enum JwtRole {
+    Any = 'Any',
+    Admin = 'Admin',
+    User = 'User',
+}
