@@ -1,6 +1,6 @@
 # Angular 17 Frontend
 
-This project is not as far along as the [React side](https://github.com/recordstuff/bretts-app) and is WAY more of just the bare beginning.
+This project is a demo showing responsive behavior and Users CRUD operations.  It was originally based on [this React repo](https://github.com/recordstuff/bretts-next).
 
 This project currently hits a [.Net 8 Core API backend](https://github.com/recordstuff/bretts-services).
 
