@@ -1,5 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core'
+import { Component, DestroyRef, OnInit, inject } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { MatButtonModule } from '@angular/material/button'
+import { AppSnackbarService } from '../../components/AppSnackbar'
 import { AppStateService } from '../../services/AppState'
 import { TestClient } from '../../services/TestClient'
 
@@ -11,6 +13,8 @@ import { TestClient } from '../../services/TestClient'
 })
 export class SettingsComponent implements OnInit {
     private readonly appState = inject(AppStateService)
+    private readonly destroyRef = inject(DestroyRef)
+    private readonly snackbar = inject(AppSnackbarService)
     private readonly testClient = inject(TestClient)
 
     ngOnInit(): void {
@@ -23,10 +27,20 @@ export class SettingsComponent implements OnInit {
     }
 
     writeLogEntry(): void {
-        this.testClient.writeLogEntry().subscribe()
+        this.testClient.writeLogEntry()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => this.snackbar.show('The test log entry was written.', 'success'),
+                error: () => this.snackbar.show('The test log entry could not be written.', 'error'),
+            })
     }
 
     shutdown(): void {
-        this.testClient.shutdown().subscribe()
+        this.testClient.shutdown()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => this.snackbar.show('The backend shutdown was requested.', 'success'),
+                error: () => this.snackbar.show('The backend shutdown could not be requested.', 'error'),
+            })
     }
 }
