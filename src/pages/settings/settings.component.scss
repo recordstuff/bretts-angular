@@ -2,7 +2,7 @@
     box-sizing: border-box;
     width: 100%;
     max-width: 56rem;
-    margin-inline: auto;
+    margin-inline: 0;
     overflow-x: auto;
     border: 1px solid #54b2a9;
     border-radius: 0.35rem;
@@ -28,7 +28,7 @@
 }
 
 .task-table th:first-child {
-    width: 65%;
+    width: 58%;
 }
 
 .task-table tbody tr:nth-child(odd) {
@@ -87,6 +87,6 @@
     }
 
     .task-table th:first-child {
-        width: 52%;
+        width: 45%;
     }
 }
