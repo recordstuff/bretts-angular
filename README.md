@@ -4,6 +4,8 @@ This project is a demo showing responsive behavior and Users CRUD operations.  I
 
 This project currently hits a [.Net 8 Core API backend](https://github.com/recordstuff/bretts-services).
 
+[See it hosted at https://brettdrake.org](https://brettdrake.org).
+
 ## Points of Interest
 
 - [AuthInterceptor.ts](https://github.com/recordstuff/bretts-angular/blob/master/src/services/AuthInterceptor.ts) applies the configured API URL, credentials, and JWT bearer token to relative API requests.
