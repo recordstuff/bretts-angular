@@ -13,6 +13,15 @@
     background: var(--app-surface);
 }
 
+.drawer .mat-mdc-list-item.mdc-list-item--activated {
+    background: var(--app-surface-strong);
+    color: var(--app-text);
+}
+
+.drawer .mat-mdc-list-item.mdc-list-item--activated .mat-icon {
+    color: inherit;
+}
+
 .app-toolbar {
     position: sticky;
     top: 0;
