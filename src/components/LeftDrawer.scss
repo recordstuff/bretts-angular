@@ -20,11 +20,8 @@
 }
 
 .navigation-list {
+    --mdc-list-list-item-one-line-container-height: 58px;
     padding-top: 0;
-}
-
-.navigation-list .mat-mdc-list-item.mdc-list-item--with-one-line {
-    height: 50px;
 }
 
 .drawer .mat-mdc-list-item.mdc-list-item--activated {
