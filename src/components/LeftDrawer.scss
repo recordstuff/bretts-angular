@@ -10,7 +10,7 @@
 
 .drawer {
     width: 12.5rem;
-    background: var(--app-surface);
+    background: var(--app-background-tint);
 }
 
 .drawer-content {
@@ -29,12 +29,15 @@
 }
 
 .drawer .mat-mdc-list-item.mdc-list-item--activated {
+    --mdc-list-list-item-label-text-color: var(--app-text);
+    --mdc-list-list-item-leading-icon-color: var(--app-text);
     background: var(--app-surface-strong);
     color: var(--app-text);
 }
 
-.drawer .mat-mdc-list-item.mdc-list-item--activated .mat-icon {
-    color: inherit;
+.drawer .mat-mdc-list-item.mdc-list-item--activated .mat-icon,
+.drawer .mat-mdc-list-item.mdc-list-item--activated .mdc-list-item__primary-text {
+    color: var(--app-text);
 }
 
 .drawer-links {
