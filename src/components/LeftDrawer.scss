@@ -28,7 +28,9 @@
     height: 64px;
 }
 
-.drawer .mat-mdc-list-item.mdc-list-item--activated {
+.drawer .mat-mdc-list-item.mdc-list-item--activated,
+.drawer .mat-mdc-list-item.drawer-link-active {
+    --mdc-list-list-item-selected-container-color: var(--app-surface-strong);
     --mdc-list-list-item-label-text-color: var(--app-text);
     --mdc-list-list-item-leading-icon-color: var(--app-text);
     background: var(--app-surface-strong);
@@ -36,7 +38,9 @@
 }
 
 .drawer .mat-mdc-list-item.mdc-list-item--activated .mat-icon,
-.drawer .mat-mdc-list-item.mdc-list-item--activated .mdc-list-item__primary-text {
+.drawer .mat-mdc-list-item.mdc-list-item--activated .mdc-list-item__primary-text,
+.drawer .mat-mdc-list-item.drawer-link-active .mat-icon,
+.drawer .mat-mdc-list-item.drawer-link-active .mdc-list-item__primary-text {
     color: var(--app-text);
 }
 

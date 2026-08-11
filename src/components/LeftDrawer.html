@@ -16,7 +16,7 @@
                         <a
                             mat-list-item
                             [routerLink]="menuItem.route"
-                            routerLinkActive
+                            routerLinkActive="drawer-link-active"
                             #activeLink="routerLinkActive"
                             [routerLinkActiveOptions]="{ exact: menuItem.route === '/' }"
                             [activated]="activeLink.isActive"
