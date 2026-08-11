@@ -29,7 +29,7 @@
 
 .users-table-container {
     overflow-x: auto;
-    border: 1px solid #54b2a9;
+    border: 1px solid var(--app-accent);
     border-radius: 0.35rem;
 }
 
@@ -48,7 +48,7 @@ table {
 }
 
 .mat-mdc-row:nth-child(even) {
-    background: #bfe9e5;
+    background: var(--app-background-tint);
 }
 
 .mat-mdc-row:hover {
@@ -64,12 +64,12 @@ table {
 }
 
 .mat-mdc-header-cell:hover {
-    background: #00877a;
+    background: var(--app-link-hover);
     color: #ffffff;
 }
 
 .mat-mdc-header-cell:active {
-    background: #006f65;
+    background: var(--app-link-active);
 }
 
 .empty-row td {

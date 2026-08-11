@@ -20,7 +20,7 @@
 }
 
 .breadcrumbs a {
-    color: #006f65;
+    color: var(--app-link);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
@@ -28,18 +28,18 @@
 }
 
 .breadcrumbs a:visited {
-    color: #006f65;
+    color: var(--app-link);
 }
 
 .breadcrumbs a:hover,
 .breadcrumbs a:focus-visible {
-    color: #00877a;
+    color: var(--app-link-hover);
     font-weight: 500;
     text-decoration-thickness: 2px;
 }
 
 .breadcrumbs a:active {
-    color: #004d46;
+    color: var(--app-link-active);
     font-weight: 700;
     text-decoration-thickness: 3px;
 }

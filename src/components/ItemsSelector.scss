@@ -17,7 +17,7 @@
 .selector-list {
     min-width: 0;
     overflow: hidden;
-    border: 1px solid #98d8d2;
+    border: 1px solid var(--app-border);
     border-radius: 0.35rem;
     background: var(--app-field-surface);
 }

@@ -4,7 +4,7 @@
     max-width: 56rem;
     margin-inline: 0;
     overflow-x: auto;
-    border: 1px solid #54b2a9;
+    border: 1px solid var(--app-accent);
     border-radius: 0.35rem;
 }
 
@@ -36,11 +36,11 @@
 }
 
 .task-table tbody tr:nth-child(even) {
-    background: #bfe9e5;
+    background: var(--app-background-tint);
 }
 
 .task-table tbody tr + tr td {
-    border-top: 1px solid #54b2a9;
+    border-top: 1px solid var(--app-border);
 }
 
 .task-table td:last-child button {
