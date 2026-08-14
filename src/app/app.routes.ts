@@ -37,6 +37,18 @@ export const routes: Routes = [
                 loadComponent: () => import('../pages/user/user.component').then(component => component.UserComponent),
             },
             {
+                path: 'roles',
+                loadComponent: () => import('../pages/roles/roles.component').then(component => component.RolesComponent),
+            },
+            {
+                path: 'role',
+                loadComponent: () => import('../pages/role/role.component').then(component => component.RoleComponent),
+            },
+            {
+                path: 'role/:id',
+                loadComponent: () => import('../pages/role/role.component').then(component => component.RoleComponent),
+            },
+            {
                 path: 'settings',
                 loadComponent: () => import('../pages/settings/settings.component').then(component => component.SettingsComponent),
             },

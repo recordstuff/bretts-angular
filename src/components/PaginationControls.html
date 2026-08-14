@@ -1,0 +1,12 @@
+<div class="pagination">
+    <span>Page {{ paginationResult.Page }} of {{ paginationResult.PageCount }}</span>
+    <mat-paginator
+        [attr.aria-label]="ariaLabel"
+        [length]="paginationResult.ItemCount"
+        [pageIndex]="page - 1"
+        [pageSize]="pageSize"
+        [hidePageSize]="true"
+        [showFirstLastButtons]="true"
+        (page)="pageChange.emit($event)"
+    />
+</div>

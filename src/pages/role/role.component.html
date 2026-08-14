@@ -1,0 +1,23 @@
+<form class="crud-form" [formGroup]="form" (ngSubmit)="save()">
+    @if (isEdit()) {
+        <mat-form-field appearance="outline" class="crud-full-width">
+            <mat-label>Id</mat-label>
+            <input matInput [value]="role().Guid" disabled>
+        </mat-form-field>
+    }
+
+    <mat-form-field appearance="outline" class="crud-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="Name" required>
+        @if (form.controls.Name.touched && form.controls.Name.hasError('required')) {
+            <mat-error>Name is required.</mat-error>
+        }
+    </mat-form-field>
+
+    <app-entity-form-actions
+        [isEdit]="isEdit()"
+        [isSaving]="isSaving()"
+        (cancelled)="cancel()"
+        (deleteRequested)="confirmDelete()"
+    />
+</form>

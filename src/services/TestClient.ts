@@ -1,20 +1,22 @@
-import { HttpClient } from '@angular/common/http'
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { ClientBase } from './ClientBase'
 
 @Injectable({providedIn: 'root'})
-export class TestClient {
-    private readonly httpClient = inject(HttpClient)
+export class TestClient extends ClientBase {
+    constructor() {
+        super('test')
+    }
 
     public throwError(): Observable<void> {
-        return this.httpClient.get<void>('test/throwerror')
+        return this.get<void>('throwerror')
     }
 
     public writeLogEntry(): Observable<void> {
-        return this.httpClient.get<void>('test/structuredlogentry')
+        return this.get<void>('structuredlogentry')
     }
 
     public shutdown(): Observable<void> {
-        return this.httpClient.delete<void>('test/shutdown')
+        return this.delete<void>('shutdown')
     }
 }

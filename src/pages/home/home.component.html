@@ -1,7 +1,7 @@
 <section class="home-page">
     <header>
         <h2>Project options</h2>
-        <p>Use the menu to explore examples of common application layouts and, if you are an administrator, manage users and settings.</p>
+        <p>Use the menu to explore examples of common application layouts and, if you are an administrator, manage users, roles, and settings.</p>
     </header>
 
     <mat-card appearance="outlined">
@@ -42,6 +42,16 @@
                 <h3>Users</h3>
             </div>
             <p>The project's most complete working feature manages real user data through a full set of CRUD operations. Administrators can search and filter users, create accounts, edit user details and role assignments, and delete users.</p>
+        </a>
+    </mat-card>
+
+    <mat-card appearance="outlined">
+        <a class="option-card" matRipple routerLink="/roles">
+            <div class="card-heading">
+                <mat-icon>admin_panel_settings</mat-icon>
+                <h3>Roles</h3>
+            </div>
+            <p>Administrators can search and sort roles, create new roles, rename existing roles, and delete roles that are not assigned to users. Duplicate role names are prevented.</p>
         </a>
     </mat-card>
 

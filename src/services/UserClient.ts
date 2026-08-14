@@ -1,5 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { JwtRole } from '../models/Jwt'
 import { LoginSession } from '../models/LoginSession'
@@ -10,14 +9,16 @@ import { UserDetail } from '../models/UserDetail'
 import { UserNew } from '../models/UserNew'
 import { UserSummary } from '../models/UserSummary'
 import { UsersSortColumn } from '../models/UsersSortColumn'
+import { ClientBase } from './ClientBase'
 
 @Injectable({ providedIn: 'root' })
-export class UserClient {
-    private readonly httpClient = inject(HttpClient)
-    private readonly basePath = 'user'
+export class UserClient extends ClientBase {
+    constructor() {
+        super('user')
+    }
 
     public login(userCredentials: UserCredentials): Observable<LoginSession> {
-        return this.httpClient.post<LoginSession>(`${this.basePath}/login`, userCredentials)
+        return this.post<LoginSession, UserCredentials>('login', userCredentials)
     }
 
     public getUsers(
@@ -28,33 +29,25 @@ export class UserClient {
         sortColumn: UsersSortColumn = UsersSortColumn.DisplayName,
         sortDirection: SortDirection = SortDirection.Ascending,
     ): Observable<PaginationResult<UserSummary>> {
-        let params = new HttpParams()
-            .set('page', page)
-            .set('pageSize', pageSize)
-            .set('roleFilter', roleFilter)
-            .set('sortColumn', sortColumn)
-            .set('sortDirection', sortDirection)
+        let params = this.paginationParams(page, pageSize, searchText, sortColumn, sortDirection)
+        params = params.set('roleFilter', roleFilter)
 
-        if (searchText !== null && searchText.length > 0) {
-            params = params.set('searchText', searchText)
-        }
-
-        return this.httpClient.get<PaginationResult<UserSummary>>(`${this.basePath}/users`, { params })
+        return this.get<PaginationResult<UserSummary>>('users', params)
     }
 
     public getUser(id: string): Observable<UserDetail> {
-        return this.httpClient.get<UserDetail>(`${this.basePath}/user/${encodeURIComponent(id)}`)
+        return this.get<UserDetail>(this.pathWithId('user', id))
     }
 
     public updateUser(userDetail: UserDetail): Observable<UserDetail> {
-        return this.httpClient.post<UserDetail>(`${this.basePath}/update`, userDetail)
+        return this.post<UserDetail, UserDetail>('update', userDetail)
     }
 
     public insertUser(userNew: UserNew): Observable<UserDetail> {
-        return this.httpClient.post<UserDetail>(`${this.basePath}/insert`, userNew)
+        return this.post<UserDetail, UserNew>('insert', userNew)
     }
 
     public deleteUser(id: string): Observable<boolean> {
-        return this.httpClient.delete<boolean>(`${this.basePath}/delete/${encodeURIComponent(id)}`)
+        return this.delete<boolean>(this.pathWithId('delete', id))
     }
 }
