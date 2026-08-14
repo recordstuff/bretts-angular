@@ -38,6 +38,10 @@ const menuItems: DrawerMenuItem[] = [
         breadcrumb: {title: 'Users', url: '/users'},
     },
     {
+        kind: 'option', text: 'Roles', route: '/roles', icon: 'admin_panel_settings', role: JwtRole.Admin,
+        breadcrumb: {title: 'Roles', url: '/roles'},
+    },
+    {
         kind: 'option', text: 'Settings', route: '/settings', icon: 'settings', role: JwtRole.Admin,
         breadcrumb: {title: 'Settings', url: '/settings'},
     },
