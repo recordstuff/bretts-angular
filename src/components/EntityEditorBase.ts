@@ -101,8 +101,12 @@ export abstract class EntityEditorBase<TEntity extends IdentifiableEntity> imple
 
     protected initialize(): void {}
 
+    protected loadEntity(): void {
+        this.loadCurrentEntity()
+    }
+
     protected resetEntity(): void {
-        this.loadEntity()
+        this.loadCurrentEntity('The form was reset.')
     }
 
     protected showRequiredFieldsWarning(): void {
@@ -148,11 +152,32 @@ export abstract class EntityEditorBase<TEntity extends IdentifiableEntity> imple
         this.errorHandler.handleError(error)
     }
 
-    protected abstract loadEntity(): void
+    protected abstract getEntity(id: string): Observable<TEntity>
 
     protected abstract setEntity(entity: TEntity): void
 
     protected abstract deleteEntity(id: string): Observable<unknown>
+
+    private loadCurrentEntity(messageAfterLoad?: string): void {
+        const entityId = this.entityId
+
+        if (entityId === null) {
+            return
+        }
+
+        this.getEntity(entityId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: entity => {
+                    this.setEntity(entity)
+
+                    if (messageAfterLoad !== undefined) {
+                        this.snackbar.show(messageAfterLoad, 'info')
+                    }
+                },
+                error: error => this.errorHandler.handleError(error),
+            })
+    }
 
     private entitySaved(entity: TEntity): void {
         const entityName = this.options.entityName.toLowerCase()
