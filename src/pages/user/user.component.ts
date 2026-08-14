@@ -1,50 +1,34 @@
-import { Location } from '@angular/common'
-import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http'
-import { Component, DestroyRef, ErrorHandler, OnInit, inject, signal } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
-import { MatButtonModule } from '@angular/material/button'
-import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
-import { ActivatedRoute, Router } from '@angular/router'
-import { filter, finalize, forkJoin, switchMap, tap } from 'rxjs'
-import { AppSnackbarService } from '../../components/AppSnackbar'
+import { Observable, forkJoin } from 'rxjs'
+import { EntityEditorBase } from '../../components/EntityEditorBase'
+import { EntityFormActionsComponent } from '../../components/EntityFormActions'
 import { ItemsSelectorComponent } from '../../components/ItemsSelector'
-import { YesNoDialogComponent } from '../../components/YesNoDialog'
 import { NameGuidPair } from '../../models/NameGuidPair'
 import { emptyUserDetail, UserDetail } from '../../models/UserDetail'
 import { UserNew } from '../../models/UserNew'
-import { AppStateService } from '../../services/AppState'
 import { RoleClient } from '../../services/RoleClient'
-import { SuccessMessageService } from '../../services/SuccessMessage'
 import { UserClient } from '../../services/UserClient'
 
 @Component({
     standalone: true,
     imports: [
+        EntityFormActionsComponent,
         ItemsSelectorComponent,
-        MatButtonModule,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
     ],
     templateUrl: 'user.component.html',
-    styleUrl: 'user.component.scss',
 })
-export class UserComponent implements OnInit {
-    private readonly activatedRoute = inject(ActivatedRoute)
-    private readonly appState = inject(AppStateService)
-    private readonly destroyRef = inject(DestroyRef)
-    private readonly dialog = inject(MatDialog)
-    private readonly errorHandler = inject(ErrorHandler)
+export class UserComponent extends EntityEditorBase<UserDetail> {
     private readonly formBuilder = inject(FormBuilder)
-    private readonly location = inject(Location)
     private readonly roleClient = inject(RoleClient)
-    private readonly router = inject(Router)
-    private readonly snackbar = inject(AppSnackbarService)
-    private readonly successMessage = inject(SuccessMessageService)
     private readonly userClient = inject(UserClient)
 
     readonly form = this.formBuilder.nonNullable.group({
@@ -56,31 +40,14 @@ export class UserComponent implements OnInit {
     readonly roles = signal<NameGuidPair[]>([])
     readonly selectedRoles = signal<NameGuidPair[]>([])
     readonly user = signal<UserDetail>(emptyUserDetail())
-    readonly isEdit = signal(false)
-    readonly isSaving = signal(false)
 
-    private userId: string | null = null
-
-    ngOnInit(): void {
-        this.userId = this.activatedRoute.snapshot.paramMap.get('id')
-        this.isEdit.set(this.userId !== null)
-        const pageTitle = this.isEdit() ? 'Edit User' : 'Add User'
-        const url = this.userId === null ? '/user' : `/user/${this.userId}`
-        this.appState.setPageTitle(pageTitle)
-        this.appState.addBreadcrumb({title: pageTitle, url})
-
-        if (!this.isEdit()) {
-            this.form.controls.Password.addValidators(Validators.required)
-            this.form.controls.Password.updateValueAndValidity()
-        }
-
-        const successMessage = this.successMessage.take()
-
-        if (successMessage !== null && this.isEdit()) {
-            this.snackbar.show(successMessage, 'success')
-        }
-
-        this.loadData()
+    constructor() {
+        super({
+            entityName: 'User',
+            itemPath: '/user',
+            listPath: '/users',
+            duplicateField: 'email',
+        })
     }
 
     rolesChanged(roles: NameGuidPair[]): void {
@@ -92,7 +59,7 @@ export class UserComponent implements OnInit {
 
         if (this.form.invalid) {
             this.form.markAllAsTouched()
-            this.snackbar.show('Complete the required user fields.', 'warning')
+            this.showRequiredFieldsWarning()
             return
         }
 
@@ -101,88 +68,28 @@ export class UserComponent implements OnInit {
             return
         }
 
-        if (this.isSaving()) {
-            return
-        }
+        this.saveEntity(
+            () => this.userClient.updateUser(this.formUser()),
+            () => {
+                const newUser: UserNew = {
+                    ...this.formUser(),
+                    Password: this.form.controls.Password.value,
+                }
 
-        this.isSaving.set(true)
-
-        if (this.isEdit()) {
-            this.userClient.updateUser(this.formUser())
-                .pipe(
-                    takeUntilDestroyed(this.destroyRef),
-                    finalize(() => this.isSaving.set(false)),
-                )
-                .subscribe({
-                    next: user => {
-                        this.setUser(user)
-                        this.snackbar.show('This user was saved.', 'success')
-                    },
-                    error: error => this.handleSaveError(error),
-                })
-            return
-        }
-
-        const newUser: UserNew = {
-            ...this.formUser(),
-            Password: this.form.controls.Password.value,
-        }
-
-        this.userClient.insertUser(newUser)
-            .pipe(
-                takeUntilDestroyed(this.destroyRef),
-                finalize(() => this.isSaving.set(false)),
-            )
-            .subscribe({
-                next: user => {
-                    this.successMessage.store('This user was created.')
-                    void this.router.navigate(['/user', user.Guid])
-                },
-                error: error => this.handleSaveError(error),
-            })
+                return this.userClient.insertUser(newUser)
+            },
+        )
     }
 
-    cancel(): void {
-        this.snackbar.dismiss()
-
+    protected override initialize(): void {
         if (!this.isEdit()) {
-            this.location.back()
-            return
+            this.form.controls.Password.addValidators(Validators.required)
+            this.form.controls.Password.updateValueAndValidity()
         }
-
-        this.loadUser()
     }
 
-    confirmDelete(): void {
-        const userId = this.userId
-
-        if (userId === null) {
-            return
-        }
-
-        this.dialog.open(YesNoDialogComponent, {
-            data: {question: 'Are you sure you want to delete this user?'},
-        })
-            .afterClosed()
-            .pipe(
-                filter((confirmed): confirmed is true => confirmed === true),
-                tap(() => this.isSaving.set(true)),
-                switchMap(() => this.userClient.deleteUser(userId).pipe(
-                    finalize(() => this.isSaving.set(false)),
-                )),
-                takeUntilDestroyed(this.destroyRef),
-            )
-            .subscribe({
-                next: () => {
-                    this.successMessage.store('This user was deleted.')
-                    void this.router.navigate(['/users'])
-                },
-                error: error => this.errorHandler.handleError(error),
-            })
-    }
-
-    private loadData(): void {
-        const userId = this.userId
+    protected override loadEntity(): void {
+        const userId = this.entityId
 
         if (userId === null) {
             this.roleClient.getAllRoles()
@@ -202,26 +109,28 @@ export class UserComponent implements OnInit {
             .subscribe({
                 next: ({roles, user}) => {
                     this.roles.set(roles)
-                    this.setUser(user)
+                    this.setEntity(user)
                 },
                 error: error => this.errorHandler.handleError(error),
             })
     }
 
-    private loadUser(): void {
-        if (this.userId === null) {
+    protected override resetEntity(): void {
+        const userId = this.entityId
+
+        if (userId === null) {
             return
         }
 
-        this.userClient.getUser(this.userId)
+        this.userClient.getUser(userId)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
-                next: user => this.setUser(user),
+                next: user => this.setEntity(user),
                 error: error => this.errorHandler.handleError(error),
             })
     }
 
-    private setUser(user: UserDetail): void {
+    protected override setEntity(user: UserDetail): void {
         this.user.set(user)
         this.selectedRoles.set([...user.Roles])
         this.form.reset({
@@ -232,24 +141,25 @@ export class UserComponent implements OnInit {
         })
     }
 
+    protected override deleteEntity(id: string): Observable<boolean> {
+        return this.userClient.deleteUser(id)
+    }
+
     private formUser(): UserDetail {
         const values = this.form.getRawValue()
+        const normalizedPhone = values.Phone.trim()
+        let phone: string | null = normalizedPhone
+
+        if (normalizedPhone.length === 0) {
+            phone = null
+        }
 
         return {
             Guid: this.user().Guid,
             DisplayName: values.DisplayName.trim(),
             Email: values.Email.trim(),
-            Phone: values.Phone.trim().length === 0 ? null : values.Phone.trim(),
+            Phone: phone,
             Roles: [...this.selectedRoles()],
         }
-    }
-
-    private handleSaveError(error: unknown): void {
-        if (error instanceof HttpErrorResponse && error.status === HttpStatusCode.Conflict) {
-            this.snackbar.show('A user with this email already exists.', 'warning')
-            return
-        }
-
-        this.errorHandler.handleError(error)
     }
 }

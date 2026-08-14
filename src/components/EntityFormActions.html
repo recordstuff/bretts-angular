@@ -1,0 +1,23 @@
+<div class="form-actions">
+    <button mat-flat-button color="primary" type="submit" [disabled]="isSaving">
+        @if (isEdit) {
+            Save
+        }
+        @else {
+            Add
+        }
+    </button>
+    <button class="cancel-button" mat-button type="button" [disabled]="isSaving" (click)="cancelled.emit()">
+        @if (isEdit) {
+            Reset Form
+        }
+        @else {
+            Cancel
+        }
+    </button>
+    @if (isEdit) {
+        <button class="delete-button" mat-flat-button color="warn" type="button" [disabled]="isSaving" (click)="deleteRequested.emit()">
+            Delete
+        </button>
+    }
+</div>

@@ -1,18 +1,19 @@
-<section class="roles-page">
-    <a class="add-role" mat-stroked-button routerLink="/role">
+<section class="crud-list-page">
+    <a class="crud-add-button" mat-stroked-button routerLink="/role">
         <mat-icon aria-hidden="true">add</mat-icon>
         Add Role
     </a>
 
-    <div class="filters">
+    <div class="crud-filters">
         <mat-form-field appearance="outline">
             <mat-label>Search Text</mat-label>
             <input matInput type="search" [formControl]="searchText">
         </mat-form-field>
     </div>
 
-    <div class="roles-table-container">
+    <div class="crud-table-container">
         <table
+            class="crud-table roles-table"
             aria-label="Roles"
             mat-table
             matSort
@@ -37,22 +38,17 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-            <tr class="empty-row" *matNoDataRow>
+            <tr class="crud-empty-row" *matNoDataRow>
                 <td [attr.colspan]="displayedColumns.length">No roles matched the current filters.</td>
             </tr>
         </table>
     </div>
 
-    <div class="pagination">
-        <span>Page {{ paginationResult().Page }} of {{ paginationResult().PageCount }}</span>
-        <mat-paginator
-            aria-label="Select roles page"
-            [length]="paginationResult().ItemCount"
-            [pageIndex]="page() - 1"
-            [pageSize]="pageSize"
-            [hidePageSize]="true"
-            [showFirstLastButtons]="true"
-            (page)="pageChanged($event)"
-        />
-    </div>
+    <app-pagination-controls
+        itemName="roles"
+        [page]="page()"
+        [pageSize]="pageSize"
+        [paginationResult]="paginationResult()"
+        (pageChange)="pageChanged($event)"
+    />
 </section>

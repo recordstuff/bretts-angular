@@ -1,19 +1,20 @@
-import { HttpClient, HttpParams } from '@angular/common/http'
-import { Injectable, inject } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { NameGuidPair } from '../models/NameGuidPair'
 import { PaginationResult } from '../models/PaginationResult'
 import { RoleNew } from '../models/RoleNew'
 import { RolesSortColumn } from '../models/RolesSortColumn'
 import { SortDirection } from '../models/SortDirection'
+import { ClientBase } from './ClientBase'
 
 @Injectable({ providedIn: 'root' })
-export class RoleClient {
-    private readonly httpClient = inject(HttpClient)
-    private readonly basePath = 'role'
+export class RoleClient extends ClientBase {
+    constructor() {
+        super('role')
+    }
 
     public getAllRoles(): Observable<NameGuidPair[]> {
-        return this.httpClient.get<NameGuidPair[]>(`${this.basePath}/allroles`)
+        return this.get<NameGuidPair[]>('allroles')
     }
 
     public getRoles(
@@ -23,32 +24,24 @@ export class RoleClient {
         sortColumn: RolesSortColumn = RolesSortColumn.Name,
         sortDirection: SortDirection = SortDirection.Ascending,
     ): Observable<PaginationResult<NameGuidPair>> {
-        let params = new HttpParams()
-            .set('page', page)
-            .set('pageSize', pageSize)
-            .set('sortColumn', sortColumn)
-            .set('sortDirection', sortDirection)
+        const params = this.paginationParams(page, pageSize, searchText, sortColumn, sortDirection)
 
-        if (searchText !== null && searchText.length > 0) {
-            params = params.set('searchText', searchText)
-        }
-
-        return this.httpClient.get<PaginationResult<NameGuidPair>>(`${this.basePath}/roles`, {params})
+        return this.get<PaginationResult<NameGuidPair>>('roles', params)
     }
 
     public getRole(id: string): Observable<NameGuidPair> {
-        return this.httpClient.get<NameGuidPair>(`${this.basePath}/role/${encodeURIComponent(id)}`)
+        return this.get<NameGuidPair>(this.pathWithId('role', id))
     }
 
     public updateRole(role: NameGuidPair): Observable<NameGuidPair> {
-        return this.httpClient.post<NameGuidPair>(`${this.basePath}/update`, role)
+        return this.post<NameGuidPair, NameGuidPair>('update', role)
     }
 
     public insertRole(role: RoleNew): Observable<NameGuidPair> {
-        return this.httpClient.post<NameGuidPair>(`${this.basePath}/insert`, role)
+        return this.post<NameGuidPair, RoleNew>('insert', role)
     }
 
     public deleteRole(id: string): Observable<boolean> {
-        return this.httpClient.delete<boolean>(`${this.basePath}/delete/${encodeURIComponent(id)}`)
+        return this.delete<boolean>(this.pathWithId('delete', id))
     }
 }

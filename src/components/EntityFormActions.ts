@@ -1,0 +1,16 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { MatButtonModule } from '@angular/material/button'
+
+@Component({
+    selector: 'app-entity-form-actions',
+    standalone: true,
+    imports: [MatButtonModule],
+    templateUrl: 'EntityFormActions.html',
+    styleUrl: 'EntityFormActions.scss',
+})
+export class EntityFormActionsComponent {
+    @Input({required: true}) isEdit = false
+    @Input({required: true}) isSaving = false
+    @Output() readonly cancelled = new EventEmitter<void>()
+    @Output() readonly deleteRequested = new EventEmitter<void>()
+}

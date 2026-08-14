@@ -1,10 +1,10 @@
-<section class="users-page">
-    <a class="add-user" mat-stroked-button routerLink="/user">
+<section class="crud-list-page">
+    <a class="crud-add-button" mat-stroked-button routerLink="/user">
         <mat-icon aria-hidden="true">add</mat-icon>
         Add User
     </a>
 
-    <div class="filters">
+    <div class="crud-filters users-filters">
         <mat-form-field appearance="outline">
             <mat-label>Search Text</mat-label>
             <input matInput type="search" [formControl]="searchText">
@@ -20,8 +20,9 @@
         </mat-form-field>
     </div>
 
-    <div class="users-table-container">
+    <div class="crud-table-container">
         <table
+            class="crud-table users-table"
             aria-label="Users"
             mat-table
             matSort
@@ -51,22 +52,17 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-            <tr class="empty-row" *matNoDataRow>
+            <tr class="crud-empty-row" *matNoDataRow>
                 <td [attr.colspan]="displayedColumns.length">No users matched the current filters.</td>
             </tr>
         </table>
     </div>
 
-    <div class="pagination">
-        <span>Page {{ paginationResult().Page }} of {{ paginationResult().PageCount }}</span>
-        <mat-paginator
-            aria-label="Select users page"
-            [length]="paginationResult().ItemCount"
-            [pageIndex]="page() - 1"
-            [pageSize]="pageSize"
-            [hidePageSize]="true"
-            [showFirstLastButtons]="true"
-            (page)="pageChanged($event)"
-        />
-    </div>
+    <app-pagination-controls
+        itemName="users"
+        [page]="page()"
+        [pageSize]="pageSize"
+        [paginationResult]="paginationResult()"
+        (pageChange)="pageChanged($event)"
+    />
 </section>

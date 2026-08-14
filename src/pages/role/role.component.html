@@ -1,12 +1,12 @@
-<form class="role-form" [formGroup]="form" (ngSubmit)="save()">
+<form class="crud-form" [formGroup]="form" (ngSubmit)="save()">
     @if (isEdit()) {
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline" class="crud-full-width">
             <mat-label>Id</mat-label>
             <input matInput [value]="role().Guid" disabled>
         </mat-form-field>
     }
 
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline" class="crud-full-width">
         <mat-label>Name</mat-label>
         <input matInput formControlName="Name" required>
         @if (form.controls.Name.touched && form.controls.Name.hasError('required')) {
@@ -14,27 +14,10 @@
         }
     </mat-form-field>
 
-    <div class="form-actions full-width">
-        <button mat-flat-button color="primary" type="submit" [disabled]="isSaving()">
-            @if (isEdit()) {
-                Save
-            }
-            @else {
-                Add
-            }
-        </button>
-        <button class="cancel-button" mat-button type="button" [disabled]="isSaving()" (click)="cancel()">
-            @if (isEdit()) {
-                Reset Form
-            }
-            @else {
-                Cancel
-            }
-        </button>
-        @if (isEdit()) {
-            <button class="delete-button" mat-flat-button color="warn" type="button" [disabled]="isSaving()" (click)="confirmDelete()">
-                Delete
-            </button>
-        }
-    </div>
+    <app-entity-form-actions
+        [isEdit]="isEdit()"
+        [isSaving]="isSaving()"
+        (cancelled)="cancel()"
+        (deleteRequested)="confirmDelete()"
+    />
 </form>
