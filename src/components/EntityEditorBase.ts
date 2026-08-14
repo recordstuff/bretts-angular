@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, filter, finalize, switchMap, tap } from 'rxjs'
 import { AppStateService } from '../services/AppState'
-import { SuccessMessageService } from '../services/SuccessMessage'
 import { AppSnackbarService } from './AppSnackbar'
 import { YesNoDialogComponent } from './YesNoDialog'
 
@@ -28,7 +27,6 @@ export abstract class EntityEditorBase<TEntity extends IdentifiableEntity> imple
     private readonly dialog = inject(MatDialog)
     private readonly location = inject(Location)
     private readonly router = inject(Router)
-    private readonly successMessage = inject(SuccessMessageService)
     protected readonly destroyRef = inject(DestroyRef)
     protected readonly errorHandler = inject(ErrorHandler)
     protected readonly snackbar = inject(AppSnackbarService)
@@ -55,12 +53,6 @@ export abstract class EntityEditorBase<TEntity extends IdentifiableEntity> imple
         const pageTitle = `${pageAction} ${this.options.entityName}`
         this.appState.setPageTitle(pageTitle)
         this.appState.addBreadcrumb({title: pageTitle, url})
-
-        const successMessage = this.successMessage.take()
-
-        if (successMessage !== null && this.isEdit()) {
-            this.snackbar.show(successMessage, 'success')
-        }
 
         this.initialize()
         this.loadEntity()
@@ -100,7 +92,7 @@ export abstract class EntityEditorBase<TEntity extends IdentifiableEntity> imple
             )
             .subscribe({
                 next: () => {
-                    this.successMessage.store(`This ${entityName} was deleted.`)
+                    this.snackbar.show(`This ${entityName} was deleted.`, 'success')
                     void this.router.navigate([this.options.listPath])
                 },
                 error: error => this.handleDeleteError(error),
@@ -171,7 +163,7 @@ export abstract class EntityEditorBase<TEntity extends IdentifiableEntity> imple
             return
         }
 
-        this.successMessage.store(`This ${entityName} was created.`)
+        this.snackbar.show(`This ${entityName} was created.`, 'success')
         void this.router.navigate([this.options.itemPath, entity.Guid])
     }
 

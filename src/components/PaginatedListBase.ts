@@ -6,16 +6,12 @@ import { Sort } from '@angular/material/sort'
 import { Observable, debounceTime, distinctUntilChanged } from 'rxjs'
 import { emptyPaginationResult, PaginationResult } from '../models/PaginationResult'
 import { SortDirection } from '../models/SortDirection'
-import { SuccessMessageService } from '../services/SuccessMessage'
-import { AppSnackbarService } from './AppSnackbar'
 
 const PAGE_SIZE = 5
 
 @Directive()
 export abstract class PaginatedListBase<TItem, TSortColumn> implements OnInit {
     private readonly destroyRef = inject(DestroyRef)
-    private readonly snackbar = inject(AppSnackbarService)
-    private readonly successMessage = inject(SuccessMessageService)
 
     readonly page = signal(1)
     readonly pageSize = PAGE_SIZE
@@ -40,12 +36,6 @@ export abstract class PaginatedListBase<TItem, TSortColumn> implements OnInit {
                 this.page.set(1)
                 this.loadPage()
             })
-
-        const successMessage = this.successMessage.take()
-
-        if (successMessage !== null) {
-            this.snackbar.show(successMessage, 'success')
-        }
 
         this.loadPage()
     }
