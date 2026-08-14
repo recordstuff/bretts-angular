@@ -7,13 +7,25 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@angular/material/list'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'
+import { IsActiveMatchOptions, Router, RouterLink, RouterOutlet } from '@angular/router'
 import { map } from 'rxjs'
 import { DrawerMenuItem, MenuOption } from '../models/MenuOption'
 import { JwtRole } from '../models/Jwt'
 import { AppStateService } from '../services/AppState'
 import { JwtUtil } from '../services/JwtUtil'
 import { BreadcrumbinatorComponent } from './Breadcruminator'
+
+const exactRouteMatchOptions: IsActiveMatchOptions = {
+    paths: 'exact',
+    queryParams: 'ignored',
+    matrixParams: 'ignored',
+    fragment: 'ignored',
+}
+
+const editorRouteMatchOptions: IsActiveMatchOptions = {
+    ...exactRouteMatchOptions,
+    paths: 'subset',
+}
 
 const menuItems: DrawerMenuItem[] = [
     {
@@ -35,10 +47,12 @@ const menuItems: DrawerMenuItem[] = [
     { kind: 'divider' },
     {
         kind: 'option', text: 'Users', route: '/users', icon: 'people', role: JwtRole.Admin,
+        editorRoute: '/user',
         breadcrumb: {title: 'Users', url: '/users'},
     },
     {
         kind: 'option', text: 'Roles', route: '/roles', icon: 'admin_panel_settings', role: JwtRole.Admin,
+        editorRoute: '/role',
         breadcrumb: {title: 'Roles', url: '/roles'},
     },
     {
@@ -59,7 +73,6 @@ const menuItems: DrawerMenuItem[] = [
         MatSidenavModule,
         MatToolbarModule,
         RouterLink,
-        RouterLinkActive,
         RouterOutlet,
     ],
     templateUrl: 'LeftDrawer.html',
@@ -67,6 +80,7 @@ const menuItems: DrawerMenuItem[] = [
 })
 export class LeftDrawerComponent {
     private readonly breakpointObserver = inject(BreakpointObserver)
+    private readonly router = inject(Router)
     private readonly jwtUtil = inject(JwtUtil)
 
     readonly appState = inject(AppStateService)
@@ -77,9 +91,13 @@ export class LeftDrawerComponent {
     readonly mobileOpen = signal(false)
     readonly showRestoredFocus = signal(false)
     readonly displayName = this.jwtUtil.displayName
-    readonly visibleMenuItems = menuItems.filter(menuItem => menuItem.kind === 'divider'
-        ? this.jwtUtil.hasMultipleRoles()
-        : this.jwtUtil.hasRole(menuItem.role))
+    readonly visibleMenuItems = menuItems.filter(menuItem => {
+        if (menuItem.kind === 'divider') {
+            return this.jwtUtil.hasMultipleRoles()
+        }
+
+        return this.jwtUtil.hasRole(menuItem.role)
+    })
 
     pointerInteraction(): void {
         this.showRestoredFocus.set(false)
@@ -95,6 +113,18 @@ export class LeftDrawerComponent {
 
     closeMobileMenu(): void {
         this.mobileOpen.set(false)
+    }
+
+    menuOptionIsActive(menuOption: MenuOption): boolean {
+        if (this.router.isActive(menuOption.route, exactRouteMatchOptions)) {
+            return true
+        }
+
+        if (menuOption.editorRoute === undefined) {
+            return false
+        }
+
+        return this.router.isActive(menuOption.editorRoute, editorRouteMatchOptions)
     }
 
     menuOptionSelected(menuOption: MenuOption): void {
