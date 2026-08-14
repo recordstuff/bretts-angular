@@ -185,7 +185,7 @@ export class UserComponent implements OnInit {
         const userId = this.userId
 
         if (userId === null) {
-            this.roleClient.getRoles()
+            this.roleClient.getAllRoles()
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe({
                     next: roles => this.roles.set(roles),
@@ -195,7 +195,7 @@ export class UserComponent implements OnInit {
         }
 
         forkJoin({
-            roles: this.roleClient.getRoles(),
+            roles: this.roleClient.getAllRoles(),
             user: this.userClient.getUser(userId),
         })
             .pipe(takeUntilDestroyed(this.destroyRef))

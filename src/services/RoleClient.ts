@@ -7,7 +7,7 @@ import { NameGuidPair } from '../models/NameGuidPair'
 export class RoleClient {
     private readonly httpClient = inject(HttpClient)
 
-    public getRoles(): Observable<NameGuidPair[]> {
-        return this.httpClient.get<NameGuidPair[]>('role/roles')
+    public getAllRoles(): Observable<NameGuidPair[]> {
+        return this.httpClient.get<NameGuidPair[]>('role/allroles')
     }
 }
