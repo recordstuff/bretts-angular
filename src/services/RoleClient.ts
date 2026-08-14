@@ -8,6 +8,6 @@ export class RoleClient {
     private readonly httpClient = inject(HttpClient)
 
     public getAllRoles(): Observable<NameGuidPair[]> {
-        return this.httpClient.get<NameGuidPair[]>('roles/allroles')
+        return this.httpClient.get<NameGuidPair[]>('role/allroles')
     }
 }
