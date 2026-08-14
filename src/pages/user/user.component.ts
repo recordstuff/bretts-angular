@@ -118,7 +118,7 @@ export class UserComponent implements OnInit {
                         this.setUser(user)
                         this.snackbar.show('This user was saved.', 'success')
                     },
-                    error: error => this.errorHandler.handleError(error),
+                    error: error => this.handleSaveError(error),
                 })
             return
         }
@@ -138,7 +138,7 @@ export class UserComponent implements OnInit {
                     this.successMessage.store('This user was created.')
                     void this.router.navigate(['/user', user.Guid])
                 },
-                error: error => this.handleInsertError(error),
+                error: error => this.handleSaveError(error),
             })
     }
 
@@ -244,7 +244,7 @@ export class UserComponent implements OnInit {
         }
     }
 
-    private handleInsertError(error: unknown): void {
+    private handleSaveError(error: unknown): void {
         if (error instanceof HttpErrorResponse && error.status === HttpStatusCode.Conflict) {
             this.snackbar.show('A user with this email already exists.', 'warning')
             return
