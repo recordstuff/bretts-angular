@@ -5,6 +5,7 @@ export interface MenuOption {
     kind: 'option'
     text: string
     route: string
+    editorRoute?: string
     icon: string
     role: JwtRole
     breadcrumb: VisitedPage
