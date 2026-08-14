@@ -21,7 +21,7 @@ describe('RoleClient', () => {
     it('gets assignable roles', () => {
         client.getAllRoles().subscribe()
 
-        const request = httpTesting.expectOne('role/allroles')
+        const request = httpTesting.expectOne('roles/allroles')
         expect(request.request.method).toBe('GET')
         request.flush([])
     })
