@@ -46,11 +46,15 @@
 }
 
 .crud-table .mat-mdc-row:nth-child(even) {
-    background: var(--app-background-tint);
+    background: color-mix(in srgb, var(--app-surface-strong) 55%, var(--app-surface));
 }
 
 .crud-table .mat-mdc-row:hover {
-    background: color-mix(in srgb, var(--app-surface-strong) 55%, var(--app-surface));
+    background: color-mix(in srgb, var(--app-surface-strong) 75%, var(--app-surface));
+}
+
+.crud-table .mat-mdc-row:active {
+    background: var(--app-surface-strong);
 }
 
 .crud-table .mat-mdc-header-cell {

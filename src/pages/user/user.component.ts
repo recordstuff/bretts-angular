@@ -103,7 +103,7 @@ export class UserComponent extends EntityEditorBase<UserDetail> {
 
         forkJoin({
             roles: this.roleClient.getAllRoles(),
-            user: this.userClient.getUser(userId),
+            user: this.getEntity(userId),
         })
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
@@ -115,19 +115,8 @@ export class UserComponent extends EntityEditorBase<UserDetail> {
             })
     }
 
-    protected override resetEntity(): void {
-        const userId = this.entityId
-
-        if (userId === null) {
-            return
-        }
-
-        this.userClient.getUser(userId)
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe({
-                next: user => this.setEntity(user),
-                error: error => this.errorHandler.handleError(error),
-            })
+    protected override getEntity(id: string): Observable<UserDetail> {
+        return this.userClient.getUser(id)
     }
 
     protected override setEntity(user: UserDetail): void {

@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -63,19 +62,8 @@ export class RoleComponent extends EntityEditorBase<NameGuidPair> {
         )
     }
 
-    protected override loadEntity(): void {
-        const roleId = this.entityId
-
-        if (roleId === null) {
-            return
-        }
-
-        this.roleClient.getRole(roleId)
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe({
-                next: role => this.setEntity(role),
-                error: error => this.errorHandler.handleError(error),
-            })
+    protected override getEntity(id: string): Observable<NameGuidPair> {
+        return this.roleClient.getRole(id)
     }
 
     protected override setEntity(role: NameGuidPair): void {
