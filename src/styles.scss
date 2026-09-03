@@ -123,22 +123,22 @@ a:active {
 }
 
 .mat-mdc-snack-bar-container.app-snackbar-panel {
-    --mdc-snackbar-supporting-text-color: #ffffff;
+    --mat-snackbar-supporting-text-color: #ffffff;
     --mat-snack-bar-button-color: #ffffff;
 }
 
 .mat-mdc-snack-bar-container.app-snackbar-success {
-    --mdc-snackbar-container-color: #2d6a4f;
+    --mat-snackbar-container-color: #2d6a4f;
 }
 
 .mat-mdc-snack-bar-container.app-snackbar-info {
-    --mdc-snackbar-container-color: #0288d1;
+    --mat-snackbar-container-color: #0288d1;
 }
 
 .mat-mdc-snack-bar-container.app-snackbar-warning {
-    --mdc-snackbar-container-color: #ed6c02;
+    --mat-snackbar-container-color: #ed6c02;
 }
 
 .mat-mdc-snack-bar-container.app-snackbar-error {
-    --mdc-snackbar-container-color: #d32f2f;
+    --mat-snackbar-container-color: #d32f2f;
 }

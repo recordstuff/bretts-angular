@@ -51,8 +51,8 @@
 }
 
 .shutdown-button {
-    --mdc-protected-button-label-text-color: #ffffff;
-    --mat-protected-button-state-layer-color: #ffffff;
+    --mat-button-protected-label-text-color: #ffffff;
+    --mat-button-protected-state-layer-color: #ffffff;
     border: 1px solid #ff8a80;
     background: linear-gradient(135deg, #7f0000 0%, #d32f2f 52%, #ff1744 100%);
     box-shadow: 0 0 0.8rem rgba(211, 47, 47, 0.55), 0 0.4rem 0.8rem rgba(127, 0, 0, 0.35);

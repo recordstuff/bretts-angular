@@ -24,14 +24,14 @@
 }
 
 .navigation-list .mat-mdc-list-item {
-    --mdc-list-list-item-one-line-container-height: 64px;
+    --mat-list-list-item-one-line-container-height: 64px;
     height: 64px;
 }
 
 .drawer .mat-mdc-list-item.mdc-list-item--activated {
-    --mdc-list-list-item-selected-container-color: var(--app-surface-strong);
-    --mdc-list-list-item-label-text-color: var(--app-text);
-    --mdc-list-list-item-leading-icon-color: var(--app-text);
+    --mat-list-list-item-selected-container-color: var(--app-surface-strong);
+    --mat-list-list-item-label-text-color: var(--app-text);
+    --mat-list-list-item-leading-icon-color: var(--app-text);
     background: var(--app-surface-strong);
     color: var(--app-text);
 }
