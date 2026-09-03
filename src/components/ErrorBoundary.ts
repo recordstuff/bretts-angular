@@ -1,10 +1,11 @@
-import { Component, DestroyRef, inject } from '@angular/core'
+import { Component, DestroyRef, inject, ChangeDetectionStrategy } from '@angular/core'
 import { ErrorBoundaryService } from '../services/ErrorBoundary'
 
 @Component({
     selector: 'app-error-boundary',
     standalone: true,
     templateUrl: 'ErrorBoundary.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'ErrorBoundary.scss',
 })
 export class ErrorBoundaryComponent {

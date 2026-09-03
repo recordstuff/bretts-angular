@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
-import { Component, inject, signal } from '@angular/core'
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDividerModule } from '@angular/material/divider'
@@ -75,6 +75,7 @@ const menuItems: DrawerMenuItem[] = [
         RouterOutlet,
     ],
     templateUrl: 'LeftDrawer.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'LeftDrawer.scss'
 })
 export class LeftDrawerComponent {

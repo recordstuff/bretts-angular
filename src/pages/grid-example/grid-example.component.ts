@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core'
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { AppStateService } from '../../services/AppState'
@@ -6,6 +6,7 @@ import { AppStateService } from '../../services/AppState'
 @Component({
     imports: [MatFormFieldModule, MatInputModule],
     templateUrl: 'grid-example.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'grid-example.component.scss'
 })
 export class GridExampleComponent implements OnInit {

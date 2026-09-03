@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ErrorBoundaryComponent } from '../components/ErrorBoundary';
 import { PleaseWaitComponent } from '../components/PleaseWait';
@@ -7,6 +7,7 @@ import { PleaseWaitComponent } from '../components/PleaseWait';
     selector: 'app-root',
     imports: [ErrorBoundaryComponent, PleaseWaitComponent, RouterOutlet],
     templateUrl: 'app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './app.component.scss'
 })
 

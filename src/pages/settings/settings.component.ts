@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core'
+import { Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { MatButtonModule } from '@angular/material/button'
 import { AppSnackbarService } from '../../components/AppSnackbar'
@@ -8,6 +8,7 @@ import { TestClient } from '../../services/TestClient'
 @Component({
     imports: [MatButtonModule],
     templateUrl: 'settings.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'settings.component.scss'
 })
 export class SettingsComponent implements OnInit {

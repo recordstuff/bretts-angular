@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { JwtUtil } from '../../services/JwtUtil'
 import {
     adminOnlyUserCredentials,
@@ -21,6 +21,7 @@ import { AppSnackbarService } from '../../components/AppSnackbar';
 @Component({
     templateUrl: 'login.component.html',
     styleUrl: 'login.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule]
 })
 

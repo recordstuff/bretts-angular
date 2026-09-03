@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core'
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -20,6 +20,7 @@ const emptyRole = (): NameGuidPair => ({Guid: '', Name: ''})
         MatInputModule,
         ReactiveFormsModule,
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: 'role.component.html'
 })
 export class RoleComponent extends EntityEditorBase<NameGuidPair> {

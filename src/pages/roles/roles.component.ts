@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -34,6 +34,7 @@ const sortColumns: Record<string, RolesSortColumn> = {
         RouterLink,
     ],
     templateUrl: 'roles.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'roles.component.scss'
 })
 export class RolesComponent extends PaginatedListBase<NameGuidPair, RolesSortColumn> {

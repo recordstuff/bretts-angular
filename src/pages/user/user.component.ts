@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core'
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -23,6 +23,7 @@ import { UserClient } from '../../services/UserClient'
         MatInputModule,
         ReactiveFormsModule,
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     templateUrl: 'user.component.html'
 })
 export class UserComponent extends EntityEditorBase<UserDetail> {

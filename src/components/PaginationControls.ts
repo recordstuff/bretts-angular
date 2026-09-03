@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core'
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator'
 import { emptyPaginationResult, PaginationResult } from '../models/PaginationResult'
 
@@ -6,6 +6,7 @@ import { emptyPaginationResult, PaginationResult } from '../models/PaginationRes
     selector: 'app-pagination-controls',
     imports: [MatPaginatorModule],
     templateUrl: 'PaginationControls.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'PaginationControls.scss'
 })
 export class PaginationControlsComponent {

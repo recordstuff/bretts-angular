@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -38,6 +38,7 @@ const sortColumns: Record<string, UsersSortColumn> = {
         RouterLink,
     ],
     templateUrl: 'users.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'users.component.scss'
 })
 export class UsersComponent extends PaginatedListBase<UserSummary, UsersSortColumn> {

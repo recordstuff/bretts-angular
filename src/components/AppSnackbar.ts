@@ -1,4 +1,4 @@
-import { Component, Injectable, inject } from '@angular/core'
+import { Component, Injectable, inject, ChangeDetectionStrategy } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import {
@@ -25,6 +25,7 @@ const severityIcons: Record<AppSnackbarSeverity, string> = {
     selector: 'app-snackbar',
     imports: [MatButtonModule, MatIconModule],
     templateUrl: 'AppSnackbar.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'AppSnackbar.scss'
 })
 export class AppSnackbarComponent {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { AppStateService } from '../services/AppState'
 
@@ -6,6 +6,7 @@ import { AppStateService } from '../services/AppState'
     selector: 'app-breadcrumbinator',
     imports: [RouterLink],
     templateUrl: 'Breadcruminator.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: 'Breadcruminator.scss'
 })
 export class BreadcrumbinatorComponent {
