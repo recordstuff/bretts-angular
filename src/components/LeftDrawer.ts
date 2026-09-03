@@ -63,7 +63,6 @@ const menuItems: DrawerMenuItem[] = [
 
 @Component({
     selector: 'app-left-drawer',
-    standalone: true,
     imports: [
         BreadcrumbinatorComponent,
         MatButtonModule,
@@ -76,7 +75,7 @@ const menuItems: DrawerMenuItem[] = [
         RouterOutlet,
     ],
     templateUrl: 'LeftDrawer.html',
-    styleUrl: 'LeftDrawer.scss',
+    styleUrl: 'LeftDrawer.scss'
 })
 export class LeftDrawerComponent {
     private readonly breakpointObserver = inject(BreakpointObserver)

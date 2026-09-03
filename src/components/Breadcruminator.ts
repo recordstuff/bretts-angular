@@ -4,10 +4,9 @@ import { AppStateService } from '../services/AppState'
 
 @Component({
     selector: 'app-breadcrumbinator',
-    standalone: true,
     imports: [RouterLink],
     templateUrl: 'Breadcruminator.html',
-    styleUrl: 'Breadcruminator.scss',
+    styleUrl: 'Breadcruminator.scss'
 })
 export class BreadcrumbinatorComponent {
     readonly appState = inject(AppStateService)

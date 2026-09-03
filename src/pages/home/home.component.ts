@@ -6,10 +6,9 @@ import { RouterLink } from '@angular/router'
 import { AppStateService } from '../../services/AppState'
 
 @Component({
-    standalone: true,
     imports: [MatCardModule, MatIconModule, MatRippleModule, RouterLink],
     templateUrl: 'home.component.html',
-    styleUrl: 'home.component.scss',
+    styleUrl: 'home.component.scss'
 })
 export class HomeComponent implements OnInit {
     private readonly appState = inject(AppStateService)

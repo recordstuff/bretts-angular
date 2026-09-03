@@ -4,10 +4,9 @@ import { MatInputModule } from '@angular/material/input'
 import { AppStateService } from '../../services/AppState'
 
 @Component({
-    standalone: true,
     imports: [MatFormFieldModule, MatInputModule],
     templateUrl: 'example-two.component.html',
-    styleUrl: 'example-two.component.scss',
+    styleUrl: 'example-two.component.scss'
 })
 export class ExampleTwoComponent implements OnInit {
     private readonly appState = inject(AppStateService)

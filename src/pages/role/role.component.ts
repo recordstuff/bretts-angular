@@ -13,7 +13,6 @@ import { RoleClient } from '../../services/RoleClient'
 const emptyRole = (): NameGuidPair => ({Guid: '', Name: ''})
 
 @Component({
-    standalone: true,
     imports: [
         EntityFormActionsComponent,
         MatDialogModule,
@@ -21,7 +20,7 @@ const emptyRole = (): NameGuidPair => ({Guid: '', Name: ''})
         MatInputModule,
         ReactiveFormsModule,
     ],
-    templateUrl: 'role.component.html',
+    templateUrl: 'role.component.html'
 })
 export class RoleComponent extends EntityEditorBase<NameGuidPair> {
     private readonly formBuilder = inject(FormBuilder)

@@ -4,10 +4,9 @@ import { emptyPaginationResult, PaginationResult } from '../models/PaginationRes
 
 @Component({
     selector: 'app-pagination-controls',
-    standalone: true,
     imports: [MatPaginatorModule],
     templateUrl: 'PaginationControls.html',
-    styleUrl: 'PaginationControls.scss',
+    styleUrl: 'PaginationControls.scss'
 })
 export class PaginationControlsComponent {
     @Input({required: true}) itemName = ''

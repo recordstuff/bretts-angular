@@ -21,8 +21,7 @@ import { AppSnackbarService } from '../../components/AppSnackbar';
 @Component({
     templateUrl: 'login.component.html',
     styleUrl: 'login.component.scss',
-    imports: [FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule],
-    standalone: true
+    imports: [FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule]
 })
 
 export class LoginComponent implements OnInit {

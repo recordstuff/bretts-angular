@@ -3,10 +3,9 @@ import { MatButtonModule } from '@angular/material/button'
 
 @Component({
     selector: 'app-entity-form-actions',
-    standalone: true,
     imports: [MatButtonModule],
     templateUrl: 'EntityFormActions.html',
-    styleUrl: 'EntityFormActions.scss',
+    styleUrl: 'EntityFormActions.scss'
 })
 export class EntityFormActionsComponent {
     @Input({required: true}) isEdit = false

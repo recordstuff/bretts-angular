@@ -8,10 +8,9 @@ import { NameGuidPair } from '../models/NameGuidPair'
 
 @Component({
     selector: 'app-items-selector',
-    standalone: true,
     imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatListModule],
     templateUrl: 'ItemsSelector.html',
-    styleUrl: 'ItemsSelector.scss',
+    styleUrl: 'ItemsSelector.scss'
 })
 export class ItemsSelectorComponent implements OnChanges {
     @Input() label = ''

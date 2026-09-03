@@ -23,10 +23,9 @@ const severityIcons: Record<AppSnackbarSeverity, string> = {
 
 @Component({
     selector: 'app-snackbar',
-    standalone: true,
     imports: [MatButtonModule, MatIconModule],
     templateUrl: 'AppSnackbar.html',
-    styleUrl: 'AppSnackbar.scss',
+    styleUrl: 'AppSnackbar.scss'
 })
 export class AppSnackbarComponent {
     readonly data = inject<AppSnackbarData>(MAT_SNACK_BAR_DATA)

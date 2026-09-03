@@ -22,7 +22,6 @@ const sortColumns: Record<string, RolesSortColumn> = {
 }
 
 @Component({
-    standalone: true,
     imports: [
         MatButtonModule,
         MatFormFieldModule,
@@ -35,7 +34,7 @@ const sortColumns: Record<string, RolesSortColumn> = {
         RouterLink,
     ],
     templateUrl: 'roles.component.html',
-    styleUrl: 'roles.component.scss',
+    styleUrl: 'roles.component.scss'
 })
 export class RolesComponent extends PaginatedListBase<NameGuidPair, RolesSortColumn> {
     private readonly appState = inject(AppStateService)

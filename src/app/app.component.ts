@@ -5,7 +5,6 @@ import { PleaseWaitComponent } from '../components/PleaseWait';
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     imports: [ErrorBoundaryComponent, PleaseWaitComponent, RouterOutlet],
     templateUrl: 'app.component.html',
     styleUrl: './app.component.scss'

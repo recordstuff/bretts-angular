@@ -6,10 +6,9 @@ import { AppStateService } from '../../services/AppState'
 import { TestClient } from '../../services/TestClient'
 
 @Component({
-    standalone: true,
     imports: [MatButtonModule],
     templateUrl: 'settings.component.html',
-    styleUrl: 'settings.component.scss',
+    styleUrl: 'settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
     private readonly appState = inject(AppStateService)

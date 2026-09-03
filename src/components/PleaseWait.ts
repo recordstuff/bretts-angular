@@ -4,10 +4,9 @@ import { PleaseWaitService } from '../services/PleaseWait'
 
 @Component({
     selector: 'app-please-wait',
-    standalone: true,
     imports: [MatProgressSpinnerModule],
     templateUrl: 'PleaseWait.html',
-    styleUrl: 'PleaseWait.scss',
+    styleUrl: 'PleaseWait.scss'
 })
 export class PleaseWaitComponent {
     readonly pleaseWait = inject(PleaseWaitService)

@@ -15,7 +15,6 @@ import { RoleClient } from '../../services/RoleClient'
 import { UserClient } from '../../services/UserClient'
 
 @Component({
-    standalone: true,
     imports: [
         EntityFormActionsComponent,
         ItemsSelectorComponent,
@@ -24,7 +23,7 @@ import { UserClient } from '../../services/UserClient'
         MatInputModule,
         ReactiveFormsModule,
     ],
-    templateUrl: 'user.component.html',
+    templateUrl: 'user.component.html'
 })
 export class UserComponent extends EntityEditorBase<UserDetail> {
     private readonly formBuilder = inject(FormBuilder)

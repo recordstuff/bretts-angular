@@ -9,10 +9,9 @@ export interface YesNoDialogData {
 
 @Component({
     selector: 'app-yes-no-dialog',
-    standalone: true,
     imports: [MatButtonModule, MatDialogModule, MatIconModule],
     templateUrl: 'YesNoDialog.html',
-    styleUrl: 'YesNoDialog.scss',
+    styleUrl: 'YesNoDialog.scss'
 })
 export class YesNoDialogComponent {
     readonly data = inject<YesNoDialogData>(MAT_DIALOG_DATA)
