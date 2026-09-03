@@ -1,5 +1,11 @@
 # Angular 22 Frontend
 
+* Angular Core:      22.1.5
+* Angular Material:  22.1.5
+* Angular CDK:       22.1.5
+* Angular CLI:       22.1.7
+* Angular Build:     22.1.7
+
 This project is an Angular demo showing responsive behavior and Users CRUD operations.  It was originally based on [this React repo](https://github.com/recordstuff/bretts-next).
 
 This project currently hits a [.Net 8 Core API backend](https://github.com/recordstuff/bretts-services).
