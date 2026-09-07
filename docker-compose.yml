@@ -5,6 +5,8 @@ services:
   angular-app:
 # build from Dockerfile
     build: .
+# restart unless stopped for start on boot
+    restart: unless-stopped    
 # expose 3002 as hosting port and container port
     ports:
     - 3002:3002
