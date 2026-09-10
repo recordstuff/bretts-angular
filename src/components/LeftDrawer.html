@@ -3,6 +3,7 @@
         id="mobile-navigation-drawer"
         class="drawer"
         role="navigation"
+        fixedInViewport
         [mode]="isMobile() ? 'over' : 'side'"
         [opened]="!isMobile() || mobileOpen()"
         (closed)="closeMobileMenu()"
